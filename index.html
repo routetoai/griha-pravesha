@@ -55,7 +55,6 @@
   --f-body: "EB Garamond", "Iowan Old Style", Georgia, serif;
   color-scheme: light;
 }
-html { transition: --side 2.6s ease, --panel 2.6s ease, --panel-2 2.6s ease, --panel-3 2.6s ease, --gold 2.6s ease, --gold-deep 2.6s ease, --blush 2.6s ease, --cream 2.6s ease, --cream-dim 2.6s ease, --line 2.6s ease, --tint 2.6s ease; }
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
 html { background: var(--side); }
@@ -1009,7 +1008,7 @@ document.querySelectorAll(".lantern").forEach((l, i) => l.addEventListener("clic
 
 
 
-/* ---------- Pastel theme cycle ---------- */
+/* ---------- Pastel theme cycle (JS-blended, works on every browser) ---------- */
 (function themes() {
   const T = [
     { side: "#f3d3de", panel: "#fdeef2", p2: "#fbe3ea", p3: "#f8dae4", gold: "#a8486e", deep: "#c99a5a", blush: "#9a5a6c", cream: "#47283a", dim: "#6e4d5d", line: "rgba(168,72,110,.28)", tint: "#f8cdd9" },
@@ -1020,15 +1019,27 @@ document.querySelectorAll(".lantern").forEach((l, i) => l.addEventListener("clic
     { side: "#f4e8b4", panel: "#fffbe8", p2: "#fbf3cf", p3: "#f7ecbe", gold: "#94701a", deep: "#c79a3e", blush: "#8c6a26", cream: "#43391a", dim: "#685c35", line: "rgba(148,112,26,.3)", tint: "#f4e3a0" }
   ];
   const root = document.documentElement;
-  let i = 0;
-  function apply(t) {
-    const m = { "--side": t.side, "--panel": t.panel, "--panel-2": t.p2, "--panel-3": t.p3, "--gold": t.gold, "--gold-deep": t.deep, "--blush": t.blush, "--cream": t.cream, "--cream-dim": t.dim, "--line": t.line, "--tint": t.tint };
-    for (const k in m) root.style.setProperty(k, m[k]);
-    const meta = document.querySelector('meta[name="theme-color"]'); if (meta) meta.content = t.side;
+  const keys = { side: "--side", panel: "--panel", p2: "--panel-2", p3: "--panel-3", gold: "--gold", deep: "--gold-deep", blush: "--blush", cream: "--cream", dim: "--cream-dim", line: "--line", tint: "--tint" };
+  const parse = c => {
+    if (c[0] === "#") { const n = parseInt(c.slice(1), 16); return [n >> 16 & 255, n >> 8 & 255, n & 255, 1]; }
+    const m = c.match(/[\d.]+/g).map(Number); return [m[0], m[1], m[2], m[3] ?? 1];
+  };
+  const P = T.map(t => { const o = {}; for (const k in keys) o[k] = parse(t[k]); return o; });
+  const out = (c) => `rgba(${Math.round(c[0])},${Math.round(c[1])},${Math.round(c[2])},${c[3].toFixed(3)})`;
+  function set(o) { for (const k in keys) root.style.setProperty(keys[k], out(o[k])); }
+  let i = 0, cur = P[0];
+  set(cur);
+  const meta = document.querySelector('meta[name="theme-color"]');
+  function blend(from, to, ms) {
+    const t0 = performance.now();
+    (function step(now) {
+      const k = Math.min(1, (now - t0) / ms), e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2, o = {};
+      for (const key in keys) o[key] = from[key].map((v, j) => v + (to[key][j] - v) * e);
+      set(o); cur = o;
+      if (k < 1) requestAnimationFrame(step); else if (meta) meta.content = out(to.side);
+    })(t0);
   }
-  apply(T[0]);
-  if (reduce) return;
-  setInterval(() => { if (!document.hidden) { i = (i + 1) % T.length; apply(T[i]); } }, 3000);
+  setInterval(() => { if (document.hidden) return; i = (i + 1) % P.length; blend(cur, P[i], 2400); }, 3000);
 })();
 
 /* ---------- Fairy lights ---------- */
