@@ -1,0 +1,696 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Praveen, Sirisha, Anukriti &amp; Ritika invite you to our Griha Pravesha on Thursday, November 5, 2026. Tap to RSVP.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="You're invited to our Griha Pravesha">
+<meta property="og:description" content="Thursday, November 5, 2026 at 9 AM. Praveen, Sirisha, Anukriti &amp; Ritika. Tap to RSVP.">
+<meta property="og:url" content="https://routetoai.github.io/griha-pravesha/">
+<meta property="og:image" content="https://routetoai.github.io/griha-pravesha/card.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1080">
+<meta property="og:image:height" content="1350">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#3a2141">
+<meta name="robots" content="noindex">
+<title>Griha Pravesha · Sweet Violet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rozha+One&family=Mukta:wght@300;400;500;600&display=swap">
+<style>
+/* Layout: one narrow column, like a folded card. A doorway hero (toran above, doors that open onto a self-drawing kolam), then details, events, venue, RSVP, and a diya to close. */
+:root {
+  --ground: #3a2141;        /* eggplant */
+  --ground-2: #4e2b55;
+  --ground-3: #66396c;        /* plum */
+  --rice: #f7ecdc;          /* rice-flour white, for kolam and text */
+  --rice-dim: #d8c2b0;
+  --rice-faint: rgba(247,236,220,.14);
+  --marigold: #e8bd6a;
+  --haldi: #f5d78e;         /* soft gold */
+  --leaf: #4c9a58;
+  --leaf-dark: #2f6a3b;
+  --kumkum: #d0233c;
+  --wood: #6b2d1a;
+  --wood-light: #8a4426;
+  --brass: #d6a541;
+  --f-display: "Rozha One", "Tiro Devanagari Hindi", Georgia, "Times New Roman", serif;
+  --f-body: "Mukta", "Segoe UI", system-ui, -apple-system, sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { background: var(--ground); }
+body {
+  background:
+    radial-gradient(120% 60% at 50% 0%, var(--ground-3) 0%, transparent 60%),
+    radial-gradient(90% 40% at 50% 100%, var(--ground-2) 0%, transparent 70%),
+    var(--ground);
+  color: var(--rice);
+  font-family: var(--f-body);
+  font-size: 17px;
+  line-height: 1.6;
+  font-weight: 400;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--ground); }
+.wrap {
+  max-width: 600px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+h1, h2, h3 { font-family: var(--f-display); font-weight: 400; margin: 0; text-wrap: balance; line-height: 1.1; }
+p { margin: 0; }
+a { color: var(--haldi); }
+:focus-visible { outline: 2px solid var(--haldi); outline-offset: 3px; border-radius: 6px; }
+.eyebrow { font-size: 12.5px; letter-spacing: .22em; text-transform: uppercase; color: var(--marigold); font-weight: 600; }
+.muted { color: var(--rice-dim); }
+
+/* Lanterns */
+.portal { position: relative; width: 100%; display: flex; justify-content: center; }
+.lantern { position: absolute; top: -30px; width: 30px; height: 150px; transform-origin: 50% 0; animation: sway 5s ease-in-out infinite; }
+.lantern.l { left: max(0px, calc(50% - 200px)); }
+.lantern.r { right: max(0px, calc(50% - 200px)); animation-delay: -2.5s; }
+.lantern.low { top: 10px; height: 200px; }
+.lantern svg { width: 100%; height: 100%; overflow: visible; }
+.lantern .lglow { animation: lglow 3s ease-in-out infinite; }
+.lantern .halo { opacity: .3; }
+@keyframes lglow { 0%,100% { opacity: .75; } 50% { opacity: 1; } }
+
+/* Toran */
+.toran { position: relative; height: 84px; width: 100%; overflow: hidden; }
+.toran svg { display: block; width: 100%; height: 84px; }
+.leaf-g { transform-box: fill-box; transform-origin: 50% 0%; animation: sway 4.5s ease-in-out infinite; }
+
+/* Hero */
+.hero { display: flex; flex-direction: column; align-items: center; gap: 22px; text-align: center; margin-top: -8px; }
+.shloka { font-family: var(--f-display); font-size: 17px; color: var(--haldi); letter-spacing: .04em; }
+.doorway {
+  position: relative;
+  width: min(300px, 78vw);
+  aspect-ratio: 3 / 4;
+  max-width: 100%;
+  border-radius: 999px 999px 10px 10px;
+  padding: 12px;
+  background: linear-gradient(180deg, var(--wood-light), var(--wood));
+  box-shadow: 0 0 0 2px var(--brass) inset, 0 30px 60px -20px rgba(0,0,0,.6), 0 0 90px -10px rgba(245,215,142,.35);
+}
+.interior {
+  position: absolute; inset: 12px;
+  border-radius: 999px 999px 4px 4px;
+  overflow: hidden;
+  background: radial-gradient(70% 55% at 50% 62%, #ffcf6b 0%, #e98a1f 32%, #7a3a4a 72%, #3a2141 100%);
+  perspective: 900px;
+}
+.interior .kolam { position: absolute; left: 50%; bottom: 8%; width: 82%; transform: translateX(-50%); }
+.kolam path { fill: none; stroke: var(--rice); stroke-width: .085; stroke-linecap: round; stroke-linejoin: round; }
+.kolam .dot { fill: var(--rice); }
+.kolam .draw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 5.5s 1.4s cubic-bezier(.55,.1,.35,1) forwards; }
+.kolam .draw.d2 { animation-delay: 3.2s; animation-duration: 3s; }
+.door {
+  position: absolute; top: 0; bottom: 0; width: 50%;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 14px, rgba(0,0,0,.14) 14px 15px),
+    linear-gradient(180deg, #7a3420, #5a2212);
+  transition: transform 1.8s cubic-bezier(.6,.05,.25,1);
+  box-shadow: inset 0 0 0 2px rgba(214,165,65,.45);
+}
+.door.l { left: 0; transform-origin: 0 50%; border-radius: 999px 0 0 0 / 999px 0 0 0; }
+.door.r { right: 0; transform-origin: 100% 50%; border-radius: 0 999px 0 0 / 0 999px 0 0; }
+.door::after { content: ""; position: absolute; top: 56%; width: 9px; height: 9px; border-radius: 50%; background: var(--brass); box-shadow: 0 0 0 3px rgba(214,165,65,.3); }
+.door.l::after { right: 10px; } .door.r::after { left: 10px; }
+.door .swastik { position: absolute; top: 38%; left: 50%; transform: translateX(-50%); width: 30px; height: 30px; color: var(--kumkum); opacity: .9; }
+.open .door.l { transform: rotateY(-104deg); }
+.open .door.r { transform: rotateY(104deg); }
+.bell-btn {
+  position: absolute; top: 14%; left: 50%; transform: translateX(-50%);
+  background: none; border: 0; padding: 0; cursor: pointer; z-index: 3;
+  width: 44px; height: 74px;
+}
+.bell-btn svg { width: 100%; height: 100%; transform-origin: 50% 0; }
+.bell-btn.ring svg { animation: ring 1.6s ease-out; }
+.bell-hint { position: absolute; top: calc(14% + 76px); left: 50%; transform: translateX(-50%); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: #3a2141; font-weight: 600; white-space: nowrap; opacity: 0; transition: opacity .6s 2.2s; z-index: 3; }
+.open .bell-hint { opacity: .85; }
+.kumkum-steps { display: flex; gap: 16px; justify-content: center; margin-top: -8px; }
+.kumkum-steps span { width: 14px; height: 24px; background: var(--kumkum); border-radius: 50% 50% 45% 45% / 60% 60% 40% 40%; opacity: .85; }
+.kumkum-steps span:nth-child(2) { transform: translateY(-8px); }
+
+h1.title { font-size: clamp(46px, 13vw, 72px); color: var(--haldi); letter-spacing: .01em; text-shadow: 0 2px 30px rgba(245,215,142,.3); }
+.dev { font-family: var(--f-display); font-size: 22px; color: var(--rice-dim); margin-top: -12px; }
+.greeting { font-size: 19px; color: var(--rice); font-weight: 500; }
+.lede { max-width: 30em; font-size: 17px; color: var(--rice-dim); font-weight: 300; }
+.hosts { display: flex; flex-direction: column; gap: 4px; align-items: center; }
+.hosts .names { font-family: var(--f-display); font-size: 25px; color: var(--rice); line-height: 1.25; }
+
+/* Date */
+.dateband {
+  display: grid; gap: 16px; text-align: center; padding: 26px 18px;
+  border-top: 1px solid var(--rice-faint); border-bottom: 1px solid var(--rice-faint);
+}
+.date-big { font-family: var(--f-display); font-size: clamp(28px, 8vw, 38px); color: var(--rice); }
+.tba { display: inline-flex; align-items: center; gap: 10px; justify-content: center; color: var(--haldi); font-size: 15px; }
+.tba::before, .tba::after { content: ""; width: 26px; height: 1px; background: currentColor; opacity: .6; }
+.countdown { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+.cd { min-width: 70px; padding: 10px 6px 6px; border-radius: 12px; background: var(--ground-2); display: flex; flex-direction: column; align-items: center; }
+.cd b { font-family: var(--f-display); font-weight: 400; font-size: 30px; line-height: 1; color: var(--haldi); font-variant-numeric: tabular-nums; }
+.cd small { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--rice-dim); margin-top: 6px; }
+
+/* Sections */
+section { display: flex; flex-direction: column; gap: 20px; }
+section > header { display: flex; flex-direction: column; gap: 6px; }
+section h2 { font-size: 34px; color: var(--rice); }
+
+.events { display: flex; flex-direction: column; }
+.event { display: grid; grid-template-columns: 54px 1fr; gap: 14px; padding: 18px 0; border-top: 1px solid var(--rice-faint); align-items: start; }
+.event:last-child { border-bottom: 1px solid var(--rice-faint); }
+.event .ic { width: 54px; height: 54px; border-radius: 50%; background: var(--ground-2); display: grid; place-items: center; }
+.event .ic svg { width: 30px; height: 30px; }
+.event h3 { font-size: 23px; color: var(--haldi); }
+.event .when { font-size: 14px; letter-spacing: .06em; color: var(--marigold); font-weight: 500; text-transform: uppercase; }
+.event p { color: var(--rice-dim); font-size: 16px; min-width: 0; }
+
+.venue { padding: 22px; border-radius: 18px; background: var(--ground-2); display: flex; flex-direction: column; gap: 14px; }
+.venue address { font-style: normal; font-size: 20px; line-height: 1.45; color: var(--rice); user-select: all; }
+.btn-row { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn {
+  appearance: none; border: 0; cursor: pointer; text-decoration: none;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font: 600 15px/1 var(--f-body); letter-spacing: .02em;
+  padding: 14px 18px; border-radius: 999px; min-height: 48px;
+  color: var(--ground); background: var(--haldi);
+  transition: transform .15s ease, background .2s ease;
+}
+.btn:hover { background: var(--marigold); }
+.btn:active { transform: scale(.97); }
+.btn.ghost { background: transparent; color: var(--rice); box-shadow: inset 0 0 0 1.5px var(--rice-faint); }
+.btn.ghost:hover { box-shadow: inset 0 0 0 1.5px var(--haldi); background: transparent; }
+.btn.wa { background: #25d366; color: #052e16; }
+.btn.wa:hover { background: #3ee07a; }
+.btn svg { width: 18px; height: 18px; }
+.btn[aria-disabled="true"] { opacity: .45; pointer-events: none; }
+
+/* RSVP */
+form { display: flex; flex-direction: column; gap: 22px; }
+.field { display: flex; flex-direction: column; gap: 8px; }
+.field > label, .field > .lbl { font-size: 13px; letter-spacing: .16em; text-transform: uppercase; color: var(--rice-dim); font-weight: 600; }
+input[type="text"] {
+  font: 400 18px var(--f-body); color: var(--rice);
+  background: var(--ground-2); border: 1.5px solid transparent; border-radius: 12px;
+  padding: 14px 16px; width: 100%;
+}
+input[type="text"]:focus { outline: none; border-color: var(--haldi); }
+input::placeholder { color: rgba(216,194,176,.55); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { position: relative; }
+.chip input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.chip span {
+  display: inline-flex; align-items: center; gap: 8px; padding: 11px 16px; border-radius: 999px;
+  box-shadow: inset 0 0 0 1.5px var(--rice-faint); color: var(--rice); font-size: 16px; font-weight: 500;
+  transition: background .2s, box-shadow .2s, color .2s;
+}
+.chip input:checked + span { background: var(--haldi); color: var(--ground); box-shadow: none; }
+.chip input:focus-visible + span { outline: 2px solid var(--haldi); outline-offset: 3px; }
+.counts { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.stepper { display: flex; align-items: center; justify-content: space-between; gap: 8px; background: var(--ground-2); border-radius: 14px; padding: 8px 8px 8px 16px; min-width: 0; }
+.stepper .s-lbl { display: flex; flex-direction: column; line-height: 1.2; }
+.stepper .s-lbl b { font-weight: 500; }
+.stepper .s-lbl small { font-size: 12px; color: var(--rice-dim); }
+.stepper .ctrl { display: flex; align-items: center; gap: 6px; }
+.stepper button { width: 36px; height: 36px; border-radius: 50%; border: 0; background: var(--ground-3); color: var(--rice); font-size: 20px; line-height: 1; cursor: pointer; }
+.stepper button:hover { background: var(--wood-light); }
+.stepper output { min-width: 22px; text-align: center; font-family: var(--f-display); font-size: 22px; font-variant-numeric: tabular-nums; color: var(--haldi); }
+.err { color: #ffb4a8; font-size: 14px; }
+
+.confirm { padding: 24px; border-radius: 18px; background: linear-gradient(160deg, var(--ground-3), var(--ground-2)); display: flex; flex-direction: column; gap: 16px; box-shadow: 0 0 0 1.5px rgba(245,215,142,.35) inset; }
+.confirm h3 { font-size: 28px; color: var(--haldi); }
+.confirm pre { margin: 0; white-space: pre-wrap; word-break: break-word; font: 400 15px/1.55 var(--f-body); color: var(--rice); background: rgba(0,0,0,.18); border-radius: 12px; padding: 14px 16px; }
+.note { font-size: 14px; color: var(--rice-dim); }
+
+/* Diya */
+.closing { align-items: center; text-align: center; gap: 14px; }
+.diya-btn { background: none; border: 0; cursor: pointer; padding: 6px; width: 150px; height: 120px; }
+.diya-btn svg { width: 100%; height: 100%; overflow: visible; }
+.flame { transform-origin: 75px 52px; transform: scale(0); transition: transform .5s cubic-bezier(.3,1.6,.5,1); }
+.lit .flame { transform: scale(1); }
+.lit .flame-inner { animation: flicker 1.8s ease-in-out infinite; transform-origin: 75px 52px; }
+.glow { opacity: 0; transition: opacity .8s; }
+.lit .glow { opacity: 1; }
+.closing h2 { font-size: 30px; color: var(--haldi); }
+.toast { position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 20px); opacity: 0; background: var(--rice); color: var(--ground); padding: 12px 18px; border-radius: 999px; font-weight: 600; font-size: 15px; transition: all .3s; pointer-events: none; z-index: 20; max-width: calc(100% - 32px); text-align: center; }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes sway { 0%,100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+@keyframes ring { 0% { transform: rotate(0); } 12% { transform: rotate(22deg); } 30% { transform: rotate(-17deg); } 48% { transform: rotate(11deg); } 66% { transform: rotate(-6deg); } 84% { transform: rotate(2deg); } 100% { transform: rotate(0); } }
+@keyframes flicker { 0%,100% { transform: scale(1,1) rotate(0); } 25% { transform: scale(.94,1.06) rotate(-2deg); } 50% { transform: scale(1.04,.96) rotate(1.5deg); } 75% { transform: scale(.97,1.04) rotate(-1deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .leaf-g, .lit .flame-inner, .lantern, .lantern .lglow { animation: none; }
+  .door { transition: none; }
+  .kolam .draw { animation: none; stroke-dashoffset: 0; }
+}
+@media (max-width: 380px) { .counts { grid-template-columns: 1fr; } }
+</style>
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}[hidden]{display:none!important}img{max-width:100%}</style>
+</head>
+<body>
+
+
+<div class="toran" aria-hidden="true"><svg id="toran"></svg></div>
+
+<div class="wrap">
+  <header class="hero">
+    <p class="shloka">॥ श्री गणेशाय नमः ॥</p>
+
+    <div class="portal">
+    <div class="lantern l" aria-hidden="true"><svg viewBox="0 0 30 150" aria-hidden="true"><line x1="15" y1="0" x2="15" y2="60" stroke="#d6a541" stroke-width="1.2" stroke-dasharray="3 2"/><g transform="translate(0 60)"><circle class="halo" cx="15" cy="26" r="22" fill="#ffd98a"/><path d="M9 2h12l-2 6H11z" fill="#d6a541"/><rect x="7" y="8" width="16" height="30" rx="5" fill="#ffe7a8" stroke="#d6a541" stroke-width="2"/><path d="M15 8v30M7 23h16" stroke="#d6a541" stroke-width="1"/><circle class="lglow" cx="15" cy="23" r="4" fill="#fff6d6"/><path d="M8 38h14l-3 6h-8z" fill="#d6a541"/><circle cx="15" cy="47" r="2" fill="#d6a541"/></g></svg></div>
+    <div class="lantern r" aria-hidden="true"><svg viewBox="0 0 30 150" aria-hidden="true"><line x1="15" y1="0" x2="15" y2="60" stroke="#d6a541" stroke-width="1.2" stroke-dasharray="3 2"/><g transform="translate(0 60)"><circle class="halo" cx="15" cy="26" r="22" fill="#ffd98a"/><path d="M9 2h12l-2 6H11z" fill="#d6a541"/><rect x="7" y="8" width="16" height="30" rx="5" fill="#ffe7a8" stroke="#d6a541" stroke-width="2"/><path d="M15 8v30M7 23h16" stroke="#d6a541" stroke-width="1"/><circle class="lglow" cx="15" cy="23" r="4" fill="#fff6d6"/><path d="M8 38h14l-3 6h-8z" fill="#d6a541"/><circle cx="15" cy="47" r="2" fill="#d6a541"/></g></svg></div>
+    <div class="doorway" id="doorway">
+      <div class="interior">
+        <svg class="kolam" id="kolam" viewBox="-5.2 -5.2 10.4 10.4" aria-hidden="true"></svg>
+        <div class="door l"><svg class="swastik" viewBox="0 0 30 30" aria-hidden="true"><path d="M15 4v22M4 15h22M15 4h8M26 15v8M15 26H7M4 15V7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></div>
+        <div class="door r"><svg class="swastik" viewBox="0 0 30 30" aria-hidden="true"><path d="M15 4v22M4 15h22M15 4h8M26 15v8M15 26H7M4 15V7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></div>
+      </div>
+      <button class="bell-btn" id="bell" type="button" aria-label="Ring the temple bell">
+        <svg viewBox="0 0 44 74" aria-hidden="true">
+          <line x1="22" y1="0" x2="22" y2="20" stroke="#d6a541" stroke-width="2"/>
+          <circle cx="22" cy="22" r="3.5" fill="#d6a541"/>
+          <path d="M22 24c-9 0-12 9-12 20 0 7-3 11-6 13h36c-3-2-6-6-6-13 0-11-3-20-12-20z" fill="#e2b350" stroke="#a87a22" stroke-width="1.2"/>
+          <path d="M14 46h16" stroke="#a87a22" stroke-width="1"/>
+          <circle cx="22" cy="62" r="4" fill="#c99434"/>
+        </svg>
+      </button>
+      <span class="bell-hint">Tap the bell</span>
+    </div>
+    </div>
+    <div class="kumkum-steps" aria-hidden="true"><span></span><span></span></div>
+
+    <p class="greeting" id="greeting" hidden></p>
+    <div>
+      <p class="eyebrow">You are invited to our</p>
+    </div>
+    <h1 class="title">Griha Pravesha</h1>
+    <p class="dev" lang="sa">गृहप्रवेश</p>
+    <p class="lede">With the blessings of the Almighty and our elders, we are stepping into our new home. Please join us for the housewarming puja and bless our family with your presence.</p>
+    <div class="hosts">
+      <span class="eyebrow">With love from</span>
+      <span class="names" id="hosts"></span>
+    </div>
+  </header>
+
+  <div class="dateband" id="dateband">
+    <p class="eyebrow">Save the date</p>
+    <p class="date-big" id="dateText"></p>
+    <p class="muted" id="timeText"></p>
+    <div class="countdown" id="countdown" hidden>
+      <div class="cd"><b id="cdD">0</b><small>Days</small></div>
+      <div class="cd"><b id="cdH">0</b><small>Hours</small></div>
+      <div class="cd"><b id="cdM">0</b><small>Minutes</small></div>
+    </div>
+    <div class="btn-row" style="justify-content:center">
+      <a class="btn ghost" id="calBtn" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+        Add to Google Calendar
+      </a>
+    </div>
+  </div>
+
+  <section aria-labelledby="h-events">
+    <header>
+      <p class="eyebrow">The day</p>
+      <h2 id="h-events">What we have planned</h2>
+    </header>
+    <div class="events" id="events"></div>
+  </section>
+
+  <section aria-labelledby="h-venue">
+    <header>
+      <p class="eyebrow">Our new home</p>
+      <h2 id="h-venue">Where to find us</h2>
+    </header>
+    <div class="venue">
+      <address id="address"></address>
+      <p class="muted" id="venueNote"></p>
+      <div class="btn-row">
+        <a class="btn" id="mapBtn" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+          Get directions
+        </a>
+        <button class="btn ghost" type="button" id="copyAddr">Copy address</button>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-rsvp" id="rsvp">
+    <header>
+      <p class="eyebrow">Kindly reply</p>
+      <h2 id="h-rsvp">Will you join us?</h2>
+      <p class="muted">Fill this in and send it to us on WhatsApp. It takes under a minute.</p>
+    </header>
+
+    <form id="rsvpForm" novalidate>
+      <div class="field">
+        <label for="gName">Your name or family name</label>
+        <input type="text" id="gName" autocomplete="name" placeholder="e.g. Ravi &amp; Lakshmi Kumar">
+        <span class="err" id="nameErr" hidden>Please add your name so we know who is coming.</span>
+      </div>
+
+      <div class="field" role="radiogroup" aria-labelledby="lblAttend">
+        <span class="lbl" id="lblAttend">Attending</span>
+        <div class="chips">
+          <label class="chip"><input type="radio" name="attend" id="aYes" value="yes" checked><span>Joyfully yes</span></label>
+          <label class="chip"><input type="radio" name="attend" id="aMaybe" value="maybe"><span>Not sure yet</span></label>
+          <label class="chip"><input type="radio" name="attend" id="aNo" value="no"><span>Sorry, can't make it</span></label>
+        </div>
+      </div>
+
+      <div class="field" id="countField">
+        <span class="lbl">How many of you</span>
+        <div class="counts">
+          <div class="stepper">
+            <span class="s-lbl"><b>Adults</b><small>13 and up</small></span>
+            <span class="ctrl"><button type="button" data-step="adults" data-d="-1" aria-label="One fewer adult">−</button><output id="adults">1</output><button type="button" data-step="adults" data-d="1" aria-label="One more adult">+</button></span>
+          </div>
+          <div class="stepper">
+            <span class="s-lbl"><b>Kids</b><small>12 and under</small></span>
+            <span class="ctrl"><button type="button" data-step="kids" data-d="-1" aria-label="One fewer child">−</button><output id="kids">0</output><button type="button" data-step="kids" data-d="1" aria-label="One more child">+</button></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="field" id="eventField">
+        <span class="lbl">You'll be with us for</span>
+        <div class="chips" id="eventChips"></div>
+      </div>
+
+      <button class="btn" type="submit" style="align-self:flex-start">Prepare my RSVP</button>
+    </form>
+
+    <div class="confirm" id="confirm" hidden>
+      <h3 id="confirmTitle">Thank you!</h3>
+      <p>One last step: send this message to us so we can plan the seating and food.</p>
+      <pre id="rsvpText"></pre>
+      <div class="btn-row">
+        <a class="btn wa" id="waBtn" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1-.7-.3-1.9-.8-2.9-2.4-.2-.4.2-.4.6-1.2.1-.1 0-.3 0-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1.1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.4-.2z"/></svg>
+          Send on WhatsApp
+        </a>
+        <button class="btn ghost" type="button" id="copyRsvp">Copy message</button>
+        <button class="btn ghost" type="button" id="editRsvp">Change my reply</button>
+      </div>
+      <p class="note" id="waNote"></p>
+    </div>
+  </section>
+
+  <section class="closing" aria-labelledby="h-close">
+    <button class="diya-btn" id="diya" type="button" aria-pressed="false" aria-label="Light the diya">
+      <svg viewBox="0 0 150 120" aria-hidden="true">
+        <defs>
+          <radialGradient id="g" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffd36b" stop-opacity=".55"/><stop offset="1" stop-color="#ffd36b" stop-opacity="0"/></radialGradient>
+          <linearGradient id="fl" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#e9561a"/><stop offset=".45" stop-color="#f4a51c"/><stop offset="1" stop-color="#fff2b8"/></linearGradient>
+        </defs>
+        <circle class="glow" cx="75" cy="40" r="58" fill="url(#g)"/>
+        <g class="flame"><path class="flame-inner" d="M75 52c-9-4-10-14-5-22 3-5 4-11 5-18 3 8 10 14 10 24 0 9-4 14-10 16z" fill="url(#fl)"/></g>
+        <path d="M18 64c10 26 30 36 57 36s47-10 57-36c-20 6-38 8-57 8s-37-2-57-8z" fill="#b8562a"/>
+        <path d="M18 64c20 6 38 8 57 8s37-2 57-8c-6-4-12-5-18-5-10 6-25 7-39 7s-29-1-39-7c-6 0-12 1-18 5z" fill="#d9773a"/>
+        <path d="M60 104h30l6 10H54z" fill="#8a3a1c"/>
+        <path d="M36 76c12 8 26 11 39 11s27-3 39-11" fill="none" stroke="#f7c948" stroke-width="2" stroke-dasharray="1 6" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <h2 id="h-close">We can't wait to welcome you home</h2>
+    <p class="muted" id="diyaText">Tap the diya to light it and send us your blessings.</p>
+  </section>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ===== Edit these details ===== */
+const INVITE = {
+  hosts: "Praveen, Sirisha, Anukriti & Ritika",
+  hostFirst: "Praveen & Sirisha",
+  // Ceremony date as "YYYY-MM-DD", or null while it's being fixed
+  date: "2026-11-05",
+  start: "09:00",           // 24-hour, Central Time
+  end: "14:00",
+  utcOffset: "-06:00",      // Central Standard Time (Nov to Mar)
+  muhurtham: "",            // e.g. "Muhurtham at 9:42 AM"
+  // WhatsApp number with country code, digits only, e.g. "15125551234". Leave "" to let guests pick the contact.
+  whatsapp: "15122066529",
+  address: ["1405 Sweet Violet Drive", "Leander, TX 78641"],
+  venueNote: "In the Wildspring neighborhood. Street parking is available along Sweet Violet Drive.",
+  events: [
+    { id: "puja", name: "Puja & entering the home", when: "9:00 AM", text: "Ganapathi puja, followed by the traditional first entry into our new home and boiling of milk.", icon: "kalash" },
+    { id: "lunch", name: "Lunch", when: "After the puja", text: "A traditional vegetarian meal with family and friends.", icon: "leaf" },
+    { id: "evening", name: "Evening open house", when: "Afternoon into evening", text: "Drop by anytime for chai, snacks and a tour of the house.", icon: "diya" }
+  ]
+};
+/* ============================== */
+
+const $ = s => document.querySelector(s);
+const prefersReduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* Toran: mango leaves and marigolds strung across the top */
+function drawToran() {
+  const svg = $("#toran");
+  const w = Math.max(320, svg.clientWidth || innerWidth);
+  svg.setAttribute("viewBox", `0 0 ${w} 84`);
+  const sag = 8, n = Math.round(w / 22);
+  const y = x => 10 + sag * Math.sin(Math.PI * x / w);
+  let out = `<path d="M0 10 Q ${w/2} ${10 + sag*2} ${w} 10" stroke="#d6a541" stroke-width="2" fill="none"/>`;
+  for (let i = 0; i <= n; i++) {
+    const x = (i + .5) * (w / (n + 1)), yy = y(x);
+    const delay = (-(i % 7) * .6).toFixed(1);
+    if (i % 3 === 1) {
+      out += `<g class="leaf-g" style="animation-delay:${delay}s">` +
+        `<line x1="${x}" y1="${yy}" x2="${x}" y2="${yy+30}" stroke="#d6a541" stroke-width="1"/>` +
+        [0,1,2].map(k => `<circle cx="${x}" cy="${yy+10+k*13}" r="${6.5-k*.6}" fill="${k%2?'#f7c948':'#f4a51c'}"/><circle cx="${x}" cy="${yy+10+k*13}" r="${3.5-k*.4}" fill="${k%2?'#f4a51c':'#e07b12'}" opacity=".7"/>`).join("") +
+        `</g>`;
+    } else {
+      const L = 46 + (i % 2) * 8;
+      out += `<g class="leaf-g" style="animation-delay:${delay}s">` +
+        `<path d="M${x} ${yy} C ${x+11} ${yy+L*.3} ${x+9} ${yy+L*.7} ${x} ${yy+L} C ${x-9} ${yy+L*.7} ${x-11} ${yy+L*.3} ${x} ${yy} Z" fill="${i%2?'#4c9a58':'#3d8449'}"/>` +
+        `<path d="M${x} ${yy+3} L ${x} ${yy+L-4}" stroke="#2f6a3b" stroke-width="1"/>` +
+        `</g>`;
+    }
+  }
+  svg.innerHTML = out;
+}
+
+/* Kolam: a pulli kolam, rice-flour dots with a continuous line looping around them */
+function drawKolam() {
+  const svg = $("#kolam");
+  let dots = "";
+  for (let i = -3; i <= 3; i++) for (let j = -3; j <= 3; j++) {
+    if (Math.abs(i) + Math.abs(j) <= 3) dots += `<circle class="dot" cx="${i*1.15}" cy="${j*1.15}" r=".11"/>`;
+  }
+  // Hypotrochoid: eight petals woven around the dot grid
+  const R = 8, r = 3, d = 5.2, s = .44;
+  let p = [];
+  for (let t = 0; t <= Math.PI * 6 + .001; t += .02) {
+    p.push([((R - r) * Math.cos(t) + d * Math.cos((R - r) / r * t)) * s, ((R - r) * Math.sin(t) - d * Math.sin((R - r) / r * t)) * s]);
+  }
+  const outer = "M" + p.map(q => q[0].toFixed(3) + " " + q[1].toFixed(3)).join("L");
+  // Inner lotus: an eight-petal rose
+  p = [];
+  for (let t = 0; t <= Math.PI * 2 + .001; t += .015) {
+    const rr = 1.55 * Math.cos(4 * t);
+    p.push([rr * Math.cos(t), rr * Math.sin(t)]);
+  }
+  const inner = "M" + p.map(q => q[0].toFixed(3) + " " + q[1].toFixed(3)).join("L");
+  svg.innerHTML = dots + `<path class="draw" pathLength="1" d="${outer}"/><path class="draw d2" pathLength="1" d="${inner}"/>`;
+}
+
+/* Temple bell, synthesized */
+let ac;
+function ringBell() {
+  const btn = $("#bell");
+  btn.classList.remove("ring"); void btn.offsetWidth; btn.classList.add("ring");
+  try {
+    ac = ac || new (window.AudioContext || window.webkitAudioContext)();
+    const now = ac.currentTime, base = 620;
+    const master = ac.createGain(); master.gain.value = .22; master.connect(ac.destination);
+    [[1, 1, 3.6], [2.01, .55, 2.4], [2.76, .45, 1.9], [5.4, .22, 1.1], [8.93, .12, .6], [.5, .3, 3.2]].forEach(([m, a, dec]) => {
+      const o = ac.createOscillator(), g = ac.createGain();
+      o.type = "sine"; o.frequency.value = base * m;
+      g.gain.setValueAtTime(0, now);
+      g.gain.linearRampToValueAtTime(a, now + .006);
+      g.gain.exponentialRampToValueAtTime(.0001, now + dec);
+      o.connect(g); g.connect(master); o.start(now); o.stop(now + dec + .05);
+    });
+  } catch (e) {}
+}
+
+/* Icons for events */
+const ICONS = {
+  kalash: `<svg viewBox="0 0 30 30"><path d="M9 9c2-3 4-4 6-4s4 1 6 4" fill="none" stroke="#4c9a58" stroke-width="2" stroke-linecap="round"/><circle cx="15" cy="6" r="3" fill="#a5672b"/><path d="M10 11h10l-1 2c4 2 5 5 5 8 0 4-4 6-9 6s-9-2-9-6c0-3 1-6 5-8z" fill="#d6a541"/><path d="M9 19h12" stroke="#d0233c" stroke-width="1.6"/></svg>`,
+  leaf: `<svg viewBox="0 0 30 30"><path d="M4 22C8 9 20 5 27 6c-1 9-7 19-21 18z" fill="#4c9a58"/><path d="M6 23C12 17 18 12 25 8" stroke="#2f6a3b" stroke-width="1.4" fill="none"/><circle cx="13" cy="18" r="2.4" fill="#f7ecdc"/><circle cx="18" cy="14" r="1.8" fill="#f4a51c"/></svg>`,
+  diya: `<svg viewBox="0 0 30 30"><path d="M15 15c-3-1-3-5-1-8 1-1 1-3 1-5 1 3 3 4 3 7s-1 5-3 6z" fill="#f4a51c"/><path d="M3 17c2 6 6 9 12 9s10-3 12-9c-4 1-8 2-12 2s-8-1-12-2z" fill="#d9773a"/></svg>`
+};
+
+/* Fill page from INVITE */
+function fmtTime(t) {
+  const [h, m] = t.split(":").map(Number);
+  return `${((h + 11) % 12) + 1}:${String(m).padStart(2, "0")} ${h < 12 ? "AM" : "PM"}`;
+}
+function eventDate() { return INVITE.date ? new Date(`${INVITE.date}T${INVITE.start}:00${INVITE.utcOffset}`) : null; }
+
+function fillPage() {
+  $("#hosts").textContent = INVITE.hosts;
+  $("#address").innerHTML = INVITE.address.map(l => l.replace(/[&<>]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]))).join("<br>");
+  $("#venueNote").textContent = INVITE.venueNote;
+  $("#mapBtn").href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(INVITE.address.join(", "));
+
+  const d = eventDate();
+  if (d) {
+    $("#dateText").textContent = d.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric", timeZone: "America/Chicago" });
+    $("#timeText").textContent = (INVITE.muhurtham ? INVITE.muhurtham + " · " : "") + `Puja begins at ${fmtTime(INVITE.start)} Central Time`;
+    const ds = INVITE.date.replace(/-/g, "");
+    const q = new URLSearchParams({
+      action: "TEMPLATE",
+      text: `Griha Pravesha at ${INVITE.hostFirst}'s new home`,
+      dates: `${ds}T${INVITE.start.replace(":", "")}00/${ds}T${INVITE.end.replace(":", "")}00`,
+      ctz: "America/Chicago",
+      location: INVITE.address.join(", "),
+      details: "Housewarming puja and lunch. We look forward to seeing you!"
+    });
+    $("#calBtn").href = "https://calendar.google.com/calendar/render?" + q.toString();
+    $("#countdown").hidden = false;
+    tick(); setInterval(tick, 30000);
+  } else {
+    $("#dateText").innerHTML = `<span class="tba">Date &amp; muhurtham to be announced</span>`;
+    $("#timeText").textContent = "We'll share the auspicious date and time very soon.";
+    $("#calBtn").setAttribute("aria-disabled", "true");
+    $("#calBtn").removeAttribute("href");
+  }
+
+  const ev = $("#events"), chips = $("#eventChips");
+  INVITE.events.forEach(e => {
+    const row = document.createElement("div");
+    row.className = "event";
+    row.innerHTML = `<div class="ic" aria-hidden="true">${ICONS[e.icon] || ""}</div><div style="min-width:0;display:flex;flex-direction:column;gap:4px"><span class="when"></span><h3></h3><p></p></div>`;
+    row.querySelector(".when").textContent = e.when;
+    row.querySelector("h3").textContent = e.name;
+    row.querySelector("p").textContent = e.text;
+    ev.appendChild(row);
+    const c = document.createElement("label");
+    c.className = "chip";
+    c.innerHTML = `<input type="checkbox" id="ev-${e.id}" value="${e.id}" checked><span></span>`;
+    c.querySelector("span").textContent = e.name;
+    chips.appendChild(c);
+  });
+}
+function tick() {
+  const ms = Math.max(0, eventDate() - Date.now());
+  $("#cdD").textContent = Math.floor(ms / 864e5);
+  $("#cdH").textContent = Math.floor(ms / 36e5) % 24;
+  $("#cdM").textContent = Math.floor(ms / 6e4) % 60;
+}
+
+/* Personal greeting from the link, e.g. ...#Ravi-and-Lakshmi */
+function greet() {
+  const h = decodeURIComponent((location.hash || "").slice(1));
+  if (!h || !/^[A-Za-z0-9._~-]+$/.test(h) || ["rsvp", "h-rsvp"].includes(h.toLowerCase())) return;
+  const name = h.split(/[-_.~]+/).filter(Boolean).map(w => w.length > 2 || w === "&" ? w[0].toUpperCase() + w.slice(1) : w).join(" ").replace(/\band\b/gi, "&");
+  const g = $("#greeting");
+  g.textContent = `Dear ${name},`;
+  g.hidden = false;
+  if (!$("#gName").value) $("#gName").value = name;
+}
+
+/* RSVP */
+const counts = { adults: 1, kids: 0 };
+function attending() { return document.querySelector('input[name="attend"]:checked').value; }
+function syncForm() {
+  const no = attending() === "no";
+  $("#countField").hidden = no;
+  $("#eventField").hidden = no;
+}
+function buildMessage() {
+  const name = $("#gName").value.trim();
+  const a = attending();
+  const label = { yes: "Yes, we'll be there", maybe: "Not sure yet", no: "Sorry, can't make it" }[a];
+  let lines = [`🏡 Griha Pravesha RSVP`, `Name: ${name}`, `Attending: ${label}`];
+  if (a !== "no") {
+    lines.push(`Adults: ${counts.adults} · Kids: ${counts.kids}`);
+    const evs = INVITE.events.filter(e => $("#ev-" + e.id).checked).map(e => e.name);
+    lines.push(`Joining for: ${evs.length ? evs.join(", ") : "Not decided"}`);
+  }
+  return lines.join("\n");
+}
+function showConfirm(msg) {
+  $("#rsvpText").textContent = msg;
+  const a = attending();
+  $("#confirmTitle").textContent = a === "yes" ? "Thank you! See you there." : a === "maybe" ? "Thank you for letting us know" : "We'll miss you!";
+  const num = (INVITE.whatsapp || "").replace(/\D/g, "");
+  $("#waBtn").href = `https://wa.me/${num}?text=${encodeURIComponent(msg)}`;
+  $("#waNote").textContent = num
+    ? "WhatsApp opens with your reply filled in. Your RSVP reaches us once you press send there."
+    : `WhatsApp opens with your reply filled in. Choose ${INVITE.hostFirst} and press send.`;
+  $("#rsvpForm").hidden = true;
+  $("#confirm").hidden = false;
+  $("#confirm").scrollIntoView({ behavior: prefersReduced ? "auto" : "smooth", block: "start" });
+}
+function toast(t) {
+  const el = $("#toast");
+  el.textContent = t; el.classList.add("show");
+  clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove("show"), 2200);
+}
+async function copyText(t, okMsg, fallbackEl) {
+  try { await navigator.clipboard.writeText(t); toast(okMsg); }
+  catch (e) {
+    if (fallbackEl) { const r = document.createRange(); r.selectNodeContents(fallbackEl); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+    toast("Selected. Use your device's Copy.");
+  }
+}
+
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-step]");
+  if (!b) return;
+  const k = b.dataset.step;
+  counts[k] = Math.min(20, Math.max(k === "adults" ? 1 : 0, counts[k] + Number(b.dataset.d)));
+  $("#" + k).textContent = counts[k];
+});
+document.querySelectorAll('input[name="attend"]').forEach(r => r.addEventListener("change", syncForm));
+$("#rsvpForm").addEventListener("submit", e => {
+  e.preventDefault();
+  if (!$("#gName").value.trim()) { $("#nameErr").hidden = false; $("#gName").focus(); return; }
+  $("#nameErr").hidden = true;
+  const msg = buildMessage();
+  try { localStorage.setItem("gp-rsvp", JSON.stringify({ msg, name: $("#gName").value.trim(), a: attending() })); } catch (err) {}
+  showConfirm(msg);
+});
+$("#gName").addEventListener("input", () => { if ($("#gName").value.trim()) $("#nameErr").hidden = true; });
+$("#editRsvp").addEventListener("click", () => { $("#confirm").hidden = true; $("#rsvpForm").hidden = false; $("#gName").focus(); });
+$("#copyRsvp").addEventListener("click", () => copyText($("#rsvpText").textContent, "RSVP copied", $("#rsvpText")));
+$("#copyAddr").addEventListener("click", () => copyText(INVITE.address.join(", "), "Address copied", $("#address")));
+$("#bell").addEventListener("click", ringBell);
+$("#diya").addEventListener("click", () => {
+  const btn = $("#diya"), lit = !btn.classList.contains("lit");
+  btn.classList.toggle("lit", lit);
+  btn.setAttribute("aria-pressed", String(lit));
+  $("#diyaText").textContent = lit ? "Thank you for your blessings. The diya is lit for our new home." : "Tap the diya to light it and send us your blessings.";
+  if (lit) ringBell();
+});
+
+/* Start */
+drawToran(); drawKolam(); fillPage(); greet(); syncForm();
+try {
+  const saved = JSON.parse(localStorage.getItem("gp-rsvp") || "null");
+  if (saved && saved.msg) {
+    $("#gName").value = saved.name;
+    const r = document.querySelector(`input[name="attend"][value="${saved.a}"]`); if (r) r.checked = true;
+    syncForm();
+  }
+} catch (e) {}
+let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(drawToran, 150); });
+setTimeout(() => $("#doorway").classList.add("open"), prefersReduced ? 0 : 700);
+</script>
+
+</body>
+</html>
