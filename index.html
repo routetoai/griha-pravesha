@@ -252,6 +252,10 @@ input::placeholder { color: var(--cream-dim); opacity: .6; }
 .stepper button { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--line); background: transparent; color: var(--gold); font-size: 19px; line-height: 1; cursor: pointer; transition: background .2s; }
 .stepper button:hover { background: rgba(244,213,141,.15); }
 .stepper output { min-width: 22px; text-align: center; font-size: 24px; font-weight: 500; color: var(--gold); font-variant-numeric: tabular-nums; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.btn.sending { pointer-events: none; opacity: .8; }
+.btn.sending::before { content: ""; width: 14px; height: 14px; border-radius: 50%; border: 2px solid currentColor; border-right-color: transparent; animation: spin .8s linear infinite; }
+.btn.wa.secondary { background: rgba(255,255,255,.7); color: #128c4a; box-shadow: inset 0 0 0 1.5px rgba(18,140,74,.45); }
 .err { color: #b4324a; font-size: 15px; font-style: italic; }
 .confirm { border-radius: 20px; padding: 24px 20px; border: 1px solid var(--gold); background: rgba(255,255,255,.72); display: flex; flex-direction: column; gap: 14px; animation: pop .6s cubic-bezier(.3,1.4,.5,1); }
 .confirm h3 { font-family: var(--f-script); font-weight: 400; font-size: 40px; line-height: 1.1; color: var(--gold); }
@@ -614,7 +618,7 @@ html.gated .column, html.gated .column *, html.gated .column *::before, html.gat
       <svg class="lotus" viewBox="0 0 64 38" aria-hidden="true"><ellipse class="halo" cx="32" cy="26" rx="26" ry="10" fill="rgba(255,255,255,.6)"/><path class="p" style="--d:.45s" d="M32 32C18 32 6 26 2 18c10 0 22 4 30 14z" fill="#e98b9a" opacity=".85"/><path class="p" style="--d:.45s" d="M32 32c14 0 26-6 30-14-10 0-22 4-30 14z" fill="#e98b9a" opacity=".85"/><path class="p" style="--d:.25s" d="M32 32C22 28 14 18 14 8c8 4 16 12 18 24z" fill="#f2a7b1"/><path class="p" style="--d:.25s" d="M32 32c10-4 18-14 18-24-8 4-16 12-18 24z" fill="#f2a7b1"/><path class="p" style="--d:.05s" d="M32 33c-6-6-8-16-0-30 8 14 6 24 0 30z" fill="#f8c6cc"/><path d="M14 34h36" stroke="#d4a548" stroke-width="1.4" stroke-linecap="round"/></svg>
       <span class="caps">Kindly reply</span>
       <h2 id="h-rsvp">Will you join us?</h2>
-      <p class="count-note">Your reply comes to us on WhatsApp. It takes a minute.</p>
+      <p class="count-note">Your reply comes straight to us. It takes a minute.</p>
     </div>
     <form id="rsvpForm" novalidate>
       <div class="field">
@@ -641,18 +645,20 @@ html.gated .column, html.gated .column *, html.gated .column *::before, html.gat
         <span class="lbl">You'll join us for</span>
         <div class="chips" id="eventChips"></div>
       </div>
-      <button class="btn" type="submit" style="align-self:center">Prepare my RSVP</button>
+      <div class="hp" aria-hidden="true"><label for="website">Leave this empty</label><input type="text" id="website" name="website" tabindex="-1" autocomplete="off"></div>
+      <button class="btn" type="submit" id="sendBtn" style="align-self:center">Confirm RSVP</button>
+      <p class="err" id="sendErr" role="alert" hidden></p>
     </form>
     <div class="confirm" id="confirm" hidden>
       <h3 id="confirmTitle">Thank you!</h3>
-      <p>One last step: send this to us so we can plan the pooja and dinner.</p>
+      <p id="confirmMsg">Your RSVP is saved. If your plans change, tap "Change reply" any time.</p>
       <pre id="rsvpText"></pre>
       <div class="btn-row">
-        <a class="btn wa" id="waBtn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1-.7-.3-1.9-.8-2.9-2.4-.2-.4.2-.4.6-1.2.1-.1 0-.3 0-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1.1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.4-.2z"/></svg>Send on WhatsApp</a>
+        <a class="btn wa" id="waBtn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1-.7-.3-1.9-.8-2.9-2.4-.2-.4.2-.4.6-1.2.1-.1 0-.3 0-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1.1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.4-.2z"/></svg><span id="waLabel">Also message us on WhatsApp</span></a>
         <button class="btn ghost small" type="button" id="copyRsvp">Copy message</button>
         <button class="btn ghost small" type="button" id="editRsvp">Change reply</button>
       </div>
-      <p class="note" id="waNote">WhatsApp opens with your reply filled in. It reaches us once you press send there.</p>
+      <p class="note" id="waNote">Optional. WhatsApp opens with your reply filled in.</p>
     </div>
   </section>
 
@@ -1299,17 +1305,52 @@ function petals(from) {
   }
 }
 $("#gName").addEventListener("input", () => { if ($("#gName").value.trim()) $("#nameErr").hidden = true; });
-$("#rsvpForm").addEventListener("submit", e => {
+const RSVP_URL = "https://script.google.com/macros/s/AKfycbxxyNActhq8UJsVlc2OnTOogVV8x0dHwc-rayWTKVcs517lTbY8w0ax4mQr6q5Ur5s53w/exec";
+function replyId() {
+  let id = null;
+  try { id = localStorage.getItem("gp-rid"); } catch (e) {}
+  if (!id) {
+    id = (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2)).slice(0, 36);
+    try { localStorage.setItem("gp-rid", id); } catch (e) {}
+  }
+  return id;
+}
+async function saveRsvp(payload) {
+  const ctl = new AbortController(), timer = setTimeout(() => ctl.abort(), 20000);
+  try {
+    const r = await fetch(RSVP_URL, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload), signal: ctl.signal });
+    const j = await r.json();
+    return !!j.ok;
+  } finally { clearTimeout(timer); }
+}
+$("#rsvpForm").addEventListener("submit", async e => {
   e.preventDefault();
   if (!$("#gName").value.trim()) { $("#nameErr").hidden = false; $("#gName").focus(); return; }
+  const btn = $("#sendBtn"), err = $("#sendErr");
   const msg = message(), a = attending();
+  const payload = { id: replyId(), name: $("#gName").value.trim(), attending: a, adults: counts.adults, kids: counts.kids,
+    pooja: !!$("#ev-pooja")?.checked, dinner: !!$("#ev-dinner")?.checked, website: $("#website").value };
+  btn.classList.add("sending"); btn.textContent = "Saving"; err.hidden = true;
+  let ok = false;
+  try { ok = await saveRsvp(payload); } catch (x) { ok = false; }
+  btn.classList.remove("sending"); btn.textContent = "Confirm RSVP";
   $("#rsvpText").textContent = msg;
-  $("#confirmTitle").textContent = a === "yes" ? "Wonderful, see you there!" : a === "maybe" ? "Thank you for letting us know" : "You'll be missed";
   $("#waBtn").href = `https://wa.me/${INVITE.whatsapp}?text=${encodeURIComponent(msg)}`;
-  petals(e.submitter || $("#rsvpForm button[type=submit]"));
+  if (ok) {
+    $("#confirmTitle").textContent = a === "yes" ? "Wonderful, see you there!" : a === "maybe" ? "Thank you for letting us know" : "You'll be missed";
+    $("#confirmMsg").textContent = "Your RSVP is saved. If your plans change, tap \"Change reply\" any time.";
+    $("#waBtn").classList.add("secondary"); $("#waLabel").textContent = "Also message us on WhatsApp";
+    $("#waNote").textContent = "Optional. WhatsApp opens with your reply filled in.";
+    petals(btn);
+  } else {
+    $("#confirmTitle").textContent = "Almost there";
+    $("#confirmMsg").textContent = "We couldn't save your reply just now. Please send it to us on WhatsApp instead, or try again in a moment.";
+    $("#waBtn").classList.remove("secondary"); $("#waLabel").textContent = "Send on WhatsApp";
+    $("#waNote").textContent = "WhatsApp opens with your reply filled in. It reaches us once you press send there.";
+  }
   $("#rsvpForm").hidden = true; $("#confirm").hidden = false;
   setTimeout(() => $("#confirm").scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" }), 120);
-  try { localStorage.setItem("gp-rsvp-v2", JSON.stringify({ name: $("#gName").value.trim(), a })); } catch (err) {}
+  try { localStorage.setItem("gp-rsvp-v2", JSON.stringify({ name: payload.name, a })); } catch (x) {}
 });
 $("#editRsvp").addEventListener("click", () => { $("#confirm").hidden = true; $("#rsvpForm").hidden = false; });
 function toast(t) { const el = $("#toast"); el.textContent = t; el.classList.add("show"); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove("show"), 2200); }
