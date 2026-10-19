@@ -983,16 +983,41 @@ function templeBell() {
 function swingBell() { const b = $("#gateBell"); b.classList.remove("ring"); void b.offsetWidth; b.classList.add("ring"); }
 
 const musicBtn = $("#musicBtn");
+/* Your own music: a file named music.mp3 (or .m4a, .ogg, .wav) next to this page plays instead of the composed music. */
+let track = null, trackState = "none";   // none | loading | ok | failed
+function startTrack() {
+  const a = document.createElement("audio");
+  a.loop = true; a.preload = "auto"; a.setAttribute("playsinline", "");
+  [["music.mp3", "audio/mpeg"], ["music.m4a", "audio/mp4"], ["music.ogg", "audio/ogg"], ["music.wav", "audio/wav"]].forEach(([src, type]) => {
+    const so = document.createElement("source"); so.src = src; so.type = type; a.appendChild(so);
+  });
+  document.body.appendChild(a);
+  track = a; trackState = "loading";
+  try { a.volume = 0; } catch (e) {}
+  const pr = a.play();
+  const fail = () => { if (trackState === "ok") return; trackState = "failed"; try { a.remove(); } catch (e) {} track = null; };
+  if (pr && pr.then) pr.then(() => {
+    trackState = "ok";
+    let v = 0; const iv = setInterval(() => { v = Math.min(1, v + .05); try { a.volume = v; } catch (e) {} if (v >= 1) clearInterval(iv); }, 150);
+  }).catch(fail);
+  a.lastElementChild.addEventListener("error", fail);
+}
+function isPlaying() { return trackState === "ok" && track ? !track.paused : Music.playing; }
 function setMusic(on) {
-  const c = audio(); if (!c) return;
-  on ? Music.start(c) : Music.stop();
+  if (trackState === "ok" && track) { on ? track.play().catch(() => {}) : track.pause(); }
+  else { const c = audio(); if (!c) return; on ? Music.start(c) : Music.stop(); }
   musicBtn.setAttribute("aria-pressed", String(on));
   musicBtn.setAttribute("aria-label", on ? "Pause background music" : "Play background music");
 }
-musicBtn.addEventListener("click", () => setMusic(!Music.playing));
+function startMusic() {
+  if (trackState === "ok") { setMusic(true); return; }
+  if (trackState === "loading") { setTimeout(startMusic, 300); return; }
+  setMusic(true);
+}
+musicBtn.addEventListener("click", () => setMusic(!isPlaying()));
 let resumeOnShow = false;
 document.addEventListener("visibilitychange", () => {
-  if (document.hidden) { resumeOnShow = Music.playing; if (Music.playing) setMusic(false); }
+  if (document.hidden) { resumeOnShow = isPlaying(); if (resumeOnShow) setMusic(false); }
   else if (resumeOnShow) setMusic(true);
 });
 
@@ -1104,10 +1129,10 @@ let entered = false;
 function enter() {
   if (entered) return; entered = true;
   const gate = $("#gate");
-  audio(); swingBell(); templeBell();
+  audio(); startTrack(); swingBell(); templeBell();
   setTimeout(() => gate.classList.add("open"), reduce ? 0 : 450);
   setTimeout(petalShower, reduce ? 0 : 1500);
-  setTimeout(() => { musicBtn.hidden = false; setMusic(true); }, reduce ? 200 : 1300);
+  setTimeout(() => { musicBtn.hidden = false; startMusic(); }, reduce ? 200 : 1300);
   setTimeout(() => templeBell(), reduce ? 0 : 2600);
   setTimeout(() => { gate.classList.add("leaving"); document.documentElement.classList.remove("gated"); startDust(); setTimeout(startFireworks, 2600); }, reduce ? 1200 : 6200);
   setTimeout(() => { gate.hidden = true; window.__lotusRecheck && window.__lotusRecheck(); }, reduce ? 1500 : 7500);
