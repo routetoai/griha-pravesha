@@ -433,7 +433,6 @@ html.gated .column, html.gated .column *, html.gated .column *::before, html.gat
 
 /* ---------- Flip countdown ---------- */
 .cbox { perspective: 400px; }
-.cbox::after { content: ""; position: absolute; left: 8px; right: 8px; top: 44%; height: 1px; background: var(--line); box-shadow: 0 1px 0 rgba(255,255,255,.08); pointer-events: none; }
 .cbox b { transform-origin: 50% 46%; }
 @keyframes tick { 0% { transform: rotateX(-100deg); opacity: .2; } 60% { transform: rotateX(12deg); opacity: 1; } 100% { transform: rotateX(0); } }
 .cbox b.tick { animation: tick .65s cubic-bezier(.3,.7,.3,1); }
@@ -460,7 +459,7 @@ html.gated .column, html.gated .column *, html.gated .column *::before, html.gat
 
 /* ---------- Aurora glow drifting behind the content ---------- */
 .aurora { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
-.aurora i { position: absolute; width: 140%; aspect-ratio: 1; border-radius: 50%; filter: blur(60px); opacity: .55; mix-blend-mode: screen; }
+.aurora i { position: absolute; width: 140%; aspect-ratio: 1; border-radius: 50%; filter: blur(55px) saturate(1.4); opacity: .75; mix-blend-mode: screen; }
 .aurora i:nth-child(1) { left: -60%; top: -10%; background: radial-gradient(circle, var(--glow1) 0%, transparent 62%); animation: drift1 22s ease-in-out infinite alternate; }
 .aurora i:nth-child(2) { right: -70%; top: 22%; background: radial-gradient(circle, var(--glow2) 0%, transparent 62%); animation: drift2 26s ease-in-out infinite alternate; }
 .aurora i:nth-child(3) { left: -40%; top: 55%; background: radial-gradient(circle, var(--glow1) 0%, transparent 60%); opacity: .4; animation: drift2 30s ease-in-out infinite alternate-reverse; }
@@ -468,6 +467,30 @@ html.gated .column, html.gated .column *, html.gated .column *::before, html.gat
 @keyframes drift1 { from { transform: translate(0,0) scale(1); } to { transform: translate(18%, 8%) scale(1.15); } }
 @keyframes drift2 { from { transform: translate(0,0) scale(1.1); } to { transform: translate(-16%, -10%) scale(.95); } }
 .column > *:not(.aurora):not(.rail):not(.lantern):not(.lights) { position: relative; }
+
+/* ---------- Living gold borders ---------- */
+@property --spin { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+.event, .cbox, .venue, .confirm { isolation: isolate; }
+.event::after, .cbox::after, .venue::after, .confirm::after { content: ""; position: absolute; inset: -1px; border-radius: inherit; padding: 1.5px; pointer-events: none; z-index: 2;
+  background: conic-gradient(from var(--spin), transparent 0deg, transparent 250deg, var(--gold) 300deg, #fff6d8 330deg, var(--gold) 345deg, transparent 360deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  animation: orbit 5s linear infinite; }
+.cbox::after { top: -1px; left: -1px; right: -1px; height: auto; bottom: -1px; box-shadow: none; animation-duration: 4s; }
+.cbox:nth-child(2)::after { animation-delay: -1s; } .cbox:nth-child(3)::after { animation-delay: -2s; } .cbox:nth-child(4)::after { animation-delay: -3s; }
+.event:nth-of-type(2)::after { animation-delay: -2.5s; }
+@keyframes orbit { to { --spin: 360deg; } }
+.cbox .split { position: absolute; left: 8px; right: 8px; top: 44%; height: 1px; background: var(--line); pointer-events: none; }
+
+/* ---------- Headings write themselves in ---------- */
+.sec-head h2 { clip-path: inset(-20% -10% -30% -10%); transition: clip-path 1.6s cubic-bezier(.6,0,.25,1) .2s, opacity 1s ease, filter 1s ease, transform 1s ease; }
+.reveal.pre .sec-head h2 { clip-path: inset(-20% 110% -30% -10%); }
+
+/* ---------- Fireworks and shooting stars over the house ---------- */
+#fw { position: absolute; left: -36px; right: -36px; top: 0; width: calc(100% + 72px); height: 760px; pointer-events: none; z-index: 0; }
+.hero > *:not(canvas) { position: relative; z-index: 1; }
+.hero > .shloka { position: absolute; }
+.title { animation: write 2.2s .7s cubic-bezier(.6,0,.25,1) both, shimmer 7s 3s linear infinite, glowpulse 4s 3s ease-in-out infinite; }
+@keyframes glowpulse { 0%,100% { filter: drop-shadow(0 2px 16px rgba(0,0,0,.35)); } 50% { filter: drop-shadow(0 0 22px color-mix(in srgb, var(--gold) 55%, transparent)); } }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
@@ -534,6 +557,7 @@ html.gated .column, html.gated .column *, html.gated .column *::before, html.gat
   <button class="lantern low r" type="button" aria-label="Ring the lantern chime"><span class="chain" style="height:240px"></span><svg viewBox="0 0 38 92" aria-hidden="true"><defs><radialGradient id="lg4" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffe9b0" stop-opacity=".75"/><stop offset="1" stop-color="#ffe9b0" stop-opacity="0"/></radialGradient><linearGradient id="lb4" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff6d8"/><stop offset=".55" stop-color="#ffd27a"/><stop offset="1" stop-color="#f0a83c"/></linearGradient></defs><circle class="halo" cx="19" cy="48" r="34" fill="url(#lg4)"/><circle cx="19" cy="3" r="2.6" fill="none" stroke="#e2b553" stroke-width="1.6"/><path d="M19 6l3 6h-6z" fill="#e2b553"/><path d="M9 20c0-5 4-8 10-8s10 3 10 8z" fill="#e2b553"/><rect x="7" y="20" width="24" height="3" rx="1" fill="#c9952f"/><path d="M9 23h20l1 34H8z" fill="url(#lb4)"/><path d="M9 23h20l1 34H8zM14 23v34M24 23v34M8.5 40h21" fill="none" stroke="#c9952f" stroke-width="1.6"/><path d="M11 30c0-3 1.5-5 3-5M27 30c0-3-1.5-5-3-5" fill="none" stroke="#c9952f" stroke-width="1"/><rect x="6" y="57" width="26" height="3.5" rx="1" fill="#c9952f"/><path d="M9 60.5h20l-6 8h-8z" fill="#e2b553"/><circle cx="19" cy="71" r="2.4" fill="#e2b553"/><path d="M19 73v9" stroke="#e2b553" stroke-width="1.2"/><path d="M16 82h6l-1 9h-4z" fill="#d6a548"/></svg></button>
 
   <header class="hero">
+    <canvas id="fw" aria-hidden="true"></canvas>
     <p class="shloka" lang="sa">॥ श्री गणेशाय नमः ॥</p>
     <p class="greeting" id="greeting" hidden></p>
     <p class="caps join">Join us for</p>
@@ -574,10 +598,10 @@ html.gated .column, html.gated .column *, html.gated .column *::before, html.gat
       <h2 id="h-count">Until we meet</h2>
     </div>
     <div class="count" id="count">
-      <div class="cbox"><b id="cdD">00</b><small>Days</small></div>
-      <div class="cbox"><b id="cdH">00</b><small>Hours</small></div>
-      <div class="cbox"><b id="cdM">00</b><small>Minutes</small></div>
-      <div class="cbox"><b id="cdS">00</b><small>Seconds</small></div>
+      <div class="cbox"><span class="split"></span><b id="cdD">00</b><small>Days</small></div>
+      <div class="cbox"><span class="split"></span><b id="cdH">00</b><small>Hours</small></div>
+      <div class="cbox"><span class="split"></span><b id="cdM">00</b><small>Minutes</small></div>
+      <div class="cbox"><span class="split"></span><b id="cdS">00</b><small>Seconds</small></div>
     </div>
     <p class="count-note" id="countNote">Thursday, November 5, 2026 · Leander, Texas</p>
   </section>
@@ -628,7 +652,6 @@ html.gated .column, html.gated .column *, html.gated .column *::before, html.gat
       <svg class="lotus" viewBox="0 0 64 38" aria-hidden="true"><ellipse class="halo" cx="32" cy="26" rx="26" ry="10" fill="rgba(242,208,140,.14)"/><path class="p" style="--d:.45s" d="M32 32C18 32 6 26 2 18c10 0 22 4 30 14z" fill="#e98b9a" opacity=".85"/><path class="p" style="--d:.45s" d="M32 32c14 0 26-6 30-14-10 0-22 4-30 14z" fill="#e98b9a" opacity=".85"/><path class="p" style="--d:.25s" d="M32 32C22 28 14 18 14 8c8 4 16 12 18 24z" fill="#f2a7b1"/><path class="p" style="--d:.25s" d="M32 32c10-4 18-14 18-24-8 4-16 12-18 24z" fill="#f2a7b1"/><path class="p" style="--d:.05s" d="M32 33c-6-6-8-16-0-30 8 14 6 24 0 30z" fill="#f8c6cc"/><path d="M14 34h36" stroke="#d4a548" stroke-width="1.4" stroke-linecap="round"/></svg>
       <span class="caps">Kindly reply</span>
       <h2 id="h-rsvp">Will you join us?</h2>
-      <p class="count-note">Your reply comes straight to us. It takes a minute.</p>
     </div>
     <form id="rsvpForm" novalidate>
       <div class="field">
@@ -661,14 +684,14 @@ html.gated .column, html.gated .column *, html.gated .column *::before, html.gat
     </form>
     <div class="confirm" id="confirm" hidden>
       <h3 id="confirmTitle">Thank you!</h3>
-      <p id="confirmMsg">Your RSVP is saved. If your plans change, tap "Change reply" any time.</p>
+      <p id="confirmMsg">We have your RSVP.</p>
       <pre id="rsvpText"></pre>
       <div class="btn-row">
         <a class="btn wa" id="waBtn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1-.7-.3-1.9-.8-2.9-2.4-.2-.4.2-.4.6-1.2.1-.1 0-.3 0-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1.1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.4-.2z"/></svg><span id="waLabel">Also message us on WhatsApp</span></a>
         <button class="btn ghost small" type="button" id="copyRsvp">Copy message</button>
         <button class="btn ghost small" type="button" id="editRsvp">Change reply</button>
       </div>
-      <p class="note" id="waNote">Optional. WhatsApp opens with your reply filled in.</p>
+      <p class="note" id="waNote"></p>
     </div>
   </section>
 
@@ -688,9 +711,9 @@ const INVITE = {
   address: ["1405 Sweet Violet Drive", "Leander, TX 78641"],
   events: [
     { id: "pooja", name: "Housewarming Pooja", part: "Morning", time: "9:00 AM", start: "09:00", end: "12:00",
-      text: "The auspicious first entry into our new home, with pooja and blessings from family and friends.", icon: "sun" },
+      text: "Join us for the pooja as we step into our new home.", icon: "sun" },
     { id: "dinner", name: "Dinner & Get-together", part: "Evening", time: "Evening", start: "18:00", end: "21:30",
-      text: "An evening of good food and great company to celebrate the new home together.", icon: "moon" }
+      text: "Dinner with family and friends at the new house.", icon: "moon" }
   ]
 };
 
@@ -743,6 +766,8 @@ function startDust() {
   const N = Math.round(Math.min(46, W / 10));
   const PET = [];
   for (let i = 0; i < 9; i++) PET.push({ x: Math.random() * W, y: Math.random() * H, s: 5 + Math.random() * 4, vy: .25 + Math.random() * .3, a: Math.random() * 6, va: (Math.random() - .5) * .03, ph: Math.random() * 6, c: ["#f4a51c", "#f7c948", "#e98b9a", "#f2b8b5", "#ffb36b"][i % 5] });
+  const SKY = [];
+  for (let i = 0; i < 7; i++) SKY.push({ x: Math.random() * W, y: H * Math.random() + H * .3, s: 7 + Math.random() * 7, vy: -(.18 + Math.random() * .22), ph: Math.random() * 6 });
   for (let i = 0; i < N; i++) P.push({ x: Math.random() * W, y: Math.random() * H, r: Math.random() * 1.6 + .4, vy: -(Math.random() * .25 + .06), vx: (Math.random() - .5) * .12, t: Math.random() * 6.28, s: Math.random() * .02 + .008 });
   (function loop() {
     x.clearRect(0, 0, W, H);
@@ -754,6 +779,17 @@ function startDust() {
       x.arc(p.x, p.y, p.r, 0, 6.283); x.fill();
     }
     x.shadowBlur = 0;
+    for (const L of SKY) {
+      L.y += L.vy; L.ph += .015; const lx = L.x + Math.sin(L.ph) * 6;
+      if (L.y < -40) { L.y = H + 40; L.x = Math.random() * W; L.s = 7 + Math.random() * 7; }
+      const fl = .85 + .15 * Math.sin(L.ph * 9), s = L.s;
+      const g = x.createRadialGradient(lx, L.y, 0, lx, L.y, s * 3.2); g.addColorStop(0, `rgba(255,190,100,${(.38 * fl).toFixed(3)})`); g.addColorStop(1, "rgba(255,190,100,0)");
+      x.fillStyle = g; x.beginPath(); x.arc(lx, L.y, s * 3.2, 0, 7); x.fill();
+      const bg = x.createLinearGradient(lx, L.y - s, lx, L.y + s); bg.addColorStop(0, "#ffd58a"); bg.addColorStop(1, "#ff8a3d");
+      x.globalAlpha = .9; x.fillStyle = bg; x.beginPath();
+      x.moveTo(lx - s * .55, L.y - s); x.lineTo(lx + s * .55, L.y - s); x.lineTo(lx + s * .42, L.y + s * .9); x.quadraticCurveTo(lx, L.y + s * 1.1, lx - s * .42, L.y + s * .9); x.closePath(); x.fill();
+      x.fillStyle = `rgba(255,248,220,${(.8 * fl).toFixed(3)})`; x.beginPath(); x.ellipse(lx, L.y + s * .7, s * .22, s * .14, 0, 0, 7); x.fill(); x.globalAlpha = 1;
+    }
     for (const q of PET) {
       q.y += q.vy; q.ph += .02; q.a += q.va; q.x += Math.sin(q.ph) * .5;
       if (q.y > H + 20) { q.y = -20; q.x = Math.random() * W; }
@@ -1018,6 +1054,55 @@ function petalShower() {
   }, { passive: true });
 })();
 
+
+/* ---------- Fireworks and shooting stars ---------- */
+function startFireworks() {
+  if (reduce) return;
+  const c = $("#fw"), x = c.getContext("2d");
+  let W, H, run = false, nextBurst = 0, nextStar = 0;
+  const parts = [], stars = [];
+  function fit() { const d = Math.min(2, devicePixelRatio || 1); W = c.clientWidth; H = c.clientHeight; c.width = W * d; c.height = H * d; x.setTransform(d, 0, 0, d, 0, 0); }
+  fit(); addEventListener("resize", fit);
+  const PAL = [["#ffd77a", "#fff3c8"], ["#ff8fb1", "#ffd1e0"], ["#7ee8e0", "#d8fffb"], ["#b79bff", "#ece2ff"], ["#9ff0a8", "#e8ffe9"], ["#ffb36b", "#ffe5c8"]];
+  function burst(t) {
+    const side = Math.random() < .5, cx = W * (side ? .1 + Math.random() * .2 : .7 + Math.random() * .2), cy = H * (.05 + Math.random() * .3), [c1, c2] = PAL[Math.floor(Math.random() * PAL.length)];
+    const n = 54 + Math.floor(Math.random() * 30), sp = 1.6 + Math.random() * 1.2, ring = Math.random() < .35;
+    for (let i = 0; i < n; i++) {
+      const a = (i / n) * Math.PI * 2 + Math.random() * .05, v = ring ? sp : sp * (.35 + Math.random() * .75);
+      parts.push({ x: cx, y: cy, vx: Math.cos(a) * v, vy: Math.sin(a) * v, life: 1, decay: .010 + Math.random() * .008, c: Math.random() < .3 ? c2 : c1, tw: Math.random() < .3 });
+    }
+    parts.push({ x: cx, y: cy, vx: 0, vy: 0, life: 1, decay: .06, c: "#ffffff", flash: true });
+  }
+  function shoot() { const fromLeft = Math.random() < .5; stars.push({ x: fromLeft ? -20 : W + 20, y: H * (.02 + Math.random() * .2), vx: (fromLeft ? 1 : -1) * (7 + Math.random() * 3), vy: 2 + Math.random() * 1.5, life: 1 }); }
+  function frame(ts) {
+    if (!run) return;
+    x.globalCompositeOperation = "destination-out"; x.fillStyle = "rgba(0,0,0,.22)"; x.fillRect(0, 0, W, H);
+    x.globalCompositeOperation = "lighter";
+    if (ts > nextBurst) { burst(ts); if (Math.random() < .35) setTimeout(() => run && burst(), 260); nextBurst = ts + 1600 + Math.random() * 1800; }
+    if (ts > nextStar) { shoot(); nextStar = ts + 4000 + Math.random() * 5000; }
+    for (let i = parts.length - 1; i >= 0; i--) {
+      const p = parts[i];
+      if (p.flash) { const g = x.createRadialGradient(p.x, p.y, 0, p.x, p.y, 60 * p.life); g.addColorStop(0, `rgba(255,255,255,${(.5 * p.life).toFixed(3)})`); g.addColorStop(1, "rgba(255,255,255,0)"); x.fillStyle = g; x.beginPath(); x.arc(p.x, p.y, 60 * p.life, 0, 7); x.fill(); }
+      else {
+        p.vx *= .985; p.vy = p.vy * .985 + .03; p.x += p.vx; p.y += p.vy;
+        const a = p.tw ? p.life * (.4 + .6 * Math.abs(Math.sin(ts * .02 + i))) : p.life;
+        x.globalAlpha = Math.max(0, a * .85); x.fillStyle = p.c; x.beginPath(); x.arc(p.x, p.y, 1.7, 0, 7); x.fill();
+      }
+      p.life -= p.decay; if (p.life <= 0) parts.splice(i, 1);
+    }
+    for (let i = stars.length - 1; i >= 0; i--) {
+      const s = stars[i]; s.x += s.vx; s.y += s.vy; s.life -= .012;
+      const g = x.createLinearGradient(s.x, s.y, s.x - s.vx * 12, s.y - s.vy * 12); g.addColorStop(0, `rgba(255,250,230,${s.life.toFixed(3)})`); g.addColorStop(1, "rgba(255,250,230,0)");
+      x.globalAlpha = 1; x.strokeStyle = g; x.lineWidth = 2; x.beginPath(); x.moveTo(s.x, s.y); x.lineTo(s.x - s.vx * 12, s.y - s.vy * 12); x.stroke();
+      if (s.life <= 0 || s.x < -60 || s.x > W + 60) stars.splice(i, 1);
+    }
+    x.globalAlpha = 1; x.globalCompositeOperation = "source-over";
+    requestAnimationFrame(frame);
+  }
+  const io = new IntersectionObserver(es => es.forEach(en => { const was = run; run = en.isIntersecting; if (run && !was) { nextBurst = performance.now() + 400; requestAnimationFrame(frame); } }));
+  io.observe(c);
+}
+
 /* ---------- Entrance sequence ---------- */
 let entered = false;
 function enter() {
@@ -1028,7 +1113,7 @@ function enter() {
   setTimeout(petalShower, reduce ? 0 : 1500);
   setTimeout(() => { musicBtn.hidden = false; setMusic(true); }, reduce ? 200 : 1300);
   setTimeout(() => templeBell(), reduce ? 0 : 2600);
-  setTimeout(() => { gate.classList.add("leaving"); document.documentElement.classList.remove("gated"); startDust(); }, reduce ? 1200 : 6200);
+  setTimeout(() => { gate.classList.add("leaving"); document.documentElement.classList.remove("gated"); startDust(); setTimeout(startFireworks, 2600); }, reduce ? 1200 : 6200);
   setTimeout(() => { gate.hidden = true; window.__lotusRecheck && window.__lotusRecheck(); }, reduce ? 1500 : 7500);
 }
 $("#enterBtn").addEventListener("click", enter);
@@ -1395,15 +1480,15 @@ $("#rsvpForm").addEventListener("submit", async e => {
   $("#waBtn").href = `https://wa.me/${INVITE.whatsapp}?text=${encodeURIComponent(msg)}`;
   if (ok) {
     $("#confirmTitle").textContent = a === "yes" ? "Wonderful, see you there!" : a === "maybe" ? "Thank you for letting us know" : "You'll be missed";
-    $("#confirmMsg").textContent = "Your RSVP is saved. If your plans change, tap \"Change reply\" any time.";
+    $("#confirmMsg").textContent = "We have your RSVP.";
     $("#waBtn").classList.add("secondary"); $("#waLabel").textContent = "Also message us on WhatsApp";
-    $("#waNote").textContent = "Optional. WhatsApp opens with your reply filled in.";
+    $("#waNote").textContent = "";
     petals(btn);
   } else {
-    $("#confirmTitle").textContent = "Almost there";
-    $("#confirmMsg").textContent = "We couldn't save your reply just now. Please send it to us on WhatsApp instead, or try again in a moment.";
+    $("#confirmTitle").textContent = "One more step";
+    $("#confirmMsg").textContent = "That didn't go through. Please send it to us on WhatsApp.";
     $("#waBtn").classList.remove("secondary"); $("#waLabel").textContent = "Send on WhatsApp";
-    $("#waNote").textContent = "WhatsApp opens with your reply filled in. It reaches us once you press send there.";
+    $("#waNote").textContent = "";
   }
   $("#rsvpForm").hidden = true; $("#confirm").hidden = false;
   setTimeout(() => $("#confirm").scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" }), 120);
