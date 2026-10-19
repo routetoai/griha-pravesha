@@ -13,7 +13,7 @@
 <meta property="og:image:width" content="1080">
 <meta property="og:image:height" content="1350">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#070f22">
+<meta name="theme-color" content="#03170f">
 <meta name="robots" content="noindex">
 <title>Housewarming · Sweet Violet</title>
 <script>document.documentElement.classList.add("gated")</script>
@@ -35,11 +35,11 @@
 /* Layout: the Canva card made into a scrolling page. Eggplant side panels, a muted-plum center column framed by gold rails, lanterns, lace mandalas; then countdown, the two events, venue, RSVP and a closing diya. */
 :root {
   /* Jewel-tone theme tokens. JS blends these through six dark themes; text stays ivory and champagne for contrast. */
-  --side: #070f22;           /* outer panels */
+  --side: #03170f;           /* outer panels */
   --side-deep: #050b18;
-  --panel: #142a52;          /* column, top */
-  --panel-2: #102244;
-  --panel-3: #0b1833;
+  --panel: #0d3a2c;          /* column, top */
+  --panel-2: #0a3024;
+  --panel-3: #06231a;
   --panel-ink: #0e1d3d;
   --gold: #f2d08c;           /* headings, numbers */
   --gold-deep: #c9a25a;      /* rails, linework */
@@ -49,8 +49,8 @@
   --cream-dim: #c8c6d2;
   --line: rgba(242,208,140,.3);
   --tint: rgba(242,208,140,.16);
-  --glow1: #2f56c8;
-  --glow2: #7a3fb0;
+  --glow1: #1f9a6e;
+  --glow2: #1f7fa8;
   --rose: #e98b9a;
   --f-script: "Pinyon Script", "Snell Roundhand", "Apple Chancery", cursive;
   --f-caps: "Marcellus", "Trajan Pro", Georgia, serif;
@@ -1163,12 +1163,12 @@ document.querySelectorAll(".lantern").forEach((l, i) => l.addEventListener("clic
 /* ---------- Pastel theme cycle (JS-blended, works on every browser) ---------- */
 (function themes() {
   const T = [
-    { side: "#070f22", panel: "#142a52", p2: "#102244", p3: "#0b1833", gold: "#f2d08c", deep: "#c9a25a", blush: "#d9c9a0", cream: "#f7f0e3", dim: "#c8c6d2", line: "rgba(242,208,140,.3)", tint: "rgba(242,208,140,.16)", g1: "#2f56c8", g2: "#7a3fb0" },
-    { side: "#03170f", panel: "#0d3a2c", p2: "#0a3024", p3: "#06231a", gold: "#f1d38c", deep: "#c9a25a", blush: "#cfe0b8", cream: "#f3f1e4", dim: "#c3d4c8", line: "rgba(241,211,140,.3)", tint: "rgba(241,211,140,.16)", g1: "#1f9a6e", g2: "#2c6db0" },
-    { side: "#1c050c", panel: "#4c1326", p2: "#3e0f1f", p3: "#2e0a17", gold: "#f4d08a", deep: "#d0a35a", blush: "#f2c2b0", cream: "#fbefe6", dim: "#e2c8c6", line: "rgba(244,208,138,.3)", tint: "rgba(244,208,138,.16)", g1: "#b0284e", g2: "#c06a2a" },
-    { side: "#140a22", panel: "#3a1d58", p2: "#2f174a", p3: "#23103a", gold: "#f2d18e", deep: "#c9a25a", blush: "#e3c6ec", cream: "#f7effa", dim: "#d4c6e0", line: "rgba(242,209,142,.3)", tint: "rgba(242,209,142,.16)", g1: "#8a3fd0", g2: "#c03f8a" },
+    { side: "#03170f", panel: "#0d3a2c", p2: "#0a3024", p3: "#06231a", gold: "#f1d38c", deep: "#c9a25a", blush: "#cfe0b8", cream: "#f3f1e4", dim: "#c3d4c8", line: "rgba(241,211,140,.3)", tint: "rgba(241,211,140,.16)", g1: "#1f9a6e", g2: "#1f7fa8" },
     { side: "#021619", panel: "#0b4049", p2: "#08343c", p3: "#05282f", gold: "#f0d08a", deep: "#c9a25a", blush: "#b8e3dd", cream: "#eef8f5", dim: "#bcd6d3", line: "rgba(240,208,138,.3)", tint: "rgba(240,208,138,.16)", g1: "#169aa0", g2: "#2f5fd0" },
-    { side: "#170c06", panel: "#40240f", p2: "#341d0c", p3: "#271508", gold: "#f6d28a", deep: "#d0a35a", blush: "#f2c49a", cream: "#fbf2e6", dim: "#e2cfba", line: "rgba(246,210,138,.32)", tint: "rgba(246,210,138,.16)", g1: "#c0622a", g2: "#a83a5a" }
+    { side: "#070f22", panel: "#142a52", p2: "#102244", p3: "#0b1833", gold: "#f2d08c", deep: "#c9a25a", blush: "#d9c9a0", cream: "#f7f0e3", dim: "#c8c6d2", line: "rgba(242,208,140,.3)", tint: "rgba(242,208,140,.16)", g1: "#2f56c8", g2: "#7a3fb0" },
+    { side: "#140a22", panel: "#3a1d58", p2: "#2f174a", p3: "#23103a", gold: "#f2d18e", deep: "#c9a25a", blush: "#e3c6ec", cream: "#f7effa", dim: "#d4c6e0", line: "rgba(242,209,142,.3)", tint: "rgba(242,209,142,.16)", g1: "#8a3fd0", g2: "#c03f8a" },
+    { side: "#1a0618", panel: "#4d1046", p2: "#410d3b", p3: "#31092d", gold: "#f4d08e", deep: "#d0a35a", blush: "#f2c2e4", cream: "#fbeffa", dim: "#e2c6dc", line: "rgba(244,208,142,.3)", tint: "rgba(244,208,142,.16)", g1: "#d0307a", g2: "#7a3fd0" },
+    { side: "#1c050c", panel: "#4c1326", p2: "#3e0f1f", p3: "#2e0a17", gold: "#f4d08a", deep: "#d0a35a", blush: "#f2c2c8", cream: "#fbeff0", dim: "#e2c8cc", line: "rgba(244,208,138,.3)", tint: "rgba(244,208,138,.16)", g1: "#b0284e", g2: "#a02c8a" }
   ];
   const root = document.documentElement;
   const keys = { side: "--side", panel: "--panel", p2: "--panel-2", p3: "--panel-3", gold: "--gold", deep: "--gold-deep", blush: "--blush", cream: "--cream", dim: "--cream-dim", line: "--line", tint: "--tint", g1: "--glow1", g2: "--glow2" };
@@ -1191,7 +1191,8 @@ document.querySelectorAll(".lantern").forEach((l, i) => l.addEventListener("clic
       if (k < 1) requestAnimationFrame(step); else if (meta) meta.content = out(to.side);
     })(t0);
   }
-  setInterval(() => { if (document.hidden) return; i = (i + 1) % P.length; blend(cur, P[i], 2400); }, 3000);
+  let dir = 1;
+  setInterval(() => { if (document.hidden) return; if (i + dir < 0 || i + dir >= P.length) dir = -dir; i += dir; blend(cur, P[i], 2400); }, 3000);
 })();
 
 /* ---------- Fairy lights ---------- */
