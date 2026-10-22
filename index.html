@@ -6,7 +6,7 @@
 <meta name="description" content="Praveen, Sirisha, Anukriti &amp; Ritika invite you to our housewarming on Thursday, November 5, 2026. Tap to RSVP.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="You're invited to our Housewarming Ceremony">
-<meta property="og:description" content="Thursday, November 5, 2026 · Pooja at 9 AM, dinner at 6:30 PM. Tap to RSVP.">
+<meta property="og:description" content="Thursday, November 5, 2026 · Pooja at 9 AM, dinner at 6:30 PM. Please RSVP by Oct 30.">
 <meta property="og:url" content="https://routetoai.github.io/griha-pravesha/">
 <meta property="og:image" content="https://routetoai.github.io/griha-pravesha/card.jpg">
 <meta property="og:image:type" content="image/jpeg">
@@ -254,6 +254,16 @@ input::placeholder { color: var(--cream-dim); opacity: .6; }
 .saved-line { font-family: var(--f-body); font-size: 22px; font-weight: 500; color: var(--gold); }
 .saved-when { font-size: 14px; color: var(--cream-dim); font-style: italic; }
 .saved-hint { font-size: 15px; color: var(--cream-dim); margin-top: 6px; }
+.rsvp-by { font-family: var(--f-caps); font-size: 13px; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); margin-top: 4px; }
+.nudge { position: fixed; z-index: 44; left: 50%; bottom: calc(14px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 0);
+  width: min(520px, calc(100% - 24px)); display: flex; align-items: center; gap: 10px; padding: 8px 8px 8px 18px; border-radius: 999px;
+  background: color-mix(in srgb, var(--panel-3) 82%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  border: 1px solid var(--line); box-shadow: 0 14px 34px rgba(0,0,0,.45); transition: transform .5s cubic-bezier(.2,.8,.2,1), opacity .4s ease; }
+.nudge.away { transform: translate(-50%, 140%); opacity: 0; pointer-events: none; }
+.nudge-text { flex: 1; min-width: 0; color: var(--cream); font-size: 16px; line-height: 1.25; }
+.nudge .btn { flex: none; min-height: 40px; }
+.nudge-x { flex: none; width: 34px; height: 34px; border-radius: 50%; border: 0; background: transparent; color: var(--cream-dim); font-size: 22px; line-height: 1; cursor: pointer; }
+.nudge-x:hover { color: var(--cream); }
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 .btn.sending { pointer-events: none; opacity: .8; }
 .btn.sending::before { content: ""; width: 14px; height: 14px; border-radius: 50%; border: 2px solid currentColor; border-right-color: transparent; animation: spin .8s linear infinite; }
@@ -592,7 +602,7 @@ html.gated .column, html.gated .column *, html.gated .column *::before, html.gat
       <span class="caps">With love from</span>
       <span class="names">Praveen, Sirisha, Anukriti &amp; Ritika</span>
     </div>
-    <a class="cue" href="#rsvp">Kindly RSVP<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></a>
+    <a class="cue" href="#rsvp">Kindly RSVP by Oct 30<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></a>
   </header>
 
   <section class="reveal" aria-labelledby="h-count">
@@ -656,6 +666,7 @@ html.gated .column, html.gated .column *, html.gated .column *::before, html.gat
       <svg class="lotus" viewBox="0 0 64 38" aria-hidden="true"><ellipse class="halo" cx="32" cy="26" rx="26" ry="10" fill="rgba(242,208,140,.14)"/><path class="p" style="--d:.45s" d="M32 32C18 32 6 26 2 18c10 0 22 4 30 14z" fill="#e98b9a" opacity=".85"/><path class="p" style="--d:.45s" d="M32 32c14 0 26-6 30-14-10 0-22 4-30 14z" fill="#e98b9a" opacity=".85"/><path class="p" style="--d:.25s" d="M32 32C22 28 14 18 14 8c8 4 16 12 18 24z" fill="#f2a7b1"/><path class="p" style="--d:.25s" d="M32 32c10-4 18-14 18-24-8 4-16 12-18 24z" fill="#f2a7b1"/><path class="p" style="--d:.05s" d="M32 33c-6-6-8-16-0-30 8 14 6 24 0 30z" fill="#f8c6cc"/><path d="M14 34h36" stroke="#d4a548" stroke-width="1.4" stroke-linecap="round"/></svg>
       <span class="caps">Kindly reply</span>
       <h2 id="h-rsvp">Will you join us?</h2>
+      <p class="rsvp-by" id="rsvpBy">Please reply by Friday, October 30</p>
     </div>
     <div class="saved" id="savedBox" hidden>
       <span class="lbl">Your RSVP</span>
@@ -711,6 +722,11 @@ html.gated .column, html.gated .column *, html.gated .column *::before, html.gat
     <canvas id="pond"></canvas>
   </div>
 </main>
+<div class="nudge" id="nudge" hidden>
+  <span class="nudge-text" id="nudgeText">Please RSVP by Fri, Oct 30</span>
+  <a class="btn small" href="#rsvp" id="nudgeGo">RSVP now</a>
+  <button class="nudge-x" type="button" id="nudgeX" aria-label="Hide reminder">×</button>
+</div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
@@ -718,6 +734,7 @@ const INVITE = {
   hostFirst: "Praveen & Sirisha",
   whatsapp: "15122066529",
   date: "2026-11-05",
+  rsvpBy: "2026-10-30",
   utcOffset: "-06:00",
   address: ["1405 Sweet Violet Drive", "Leander, TX 78641"],
   events: [
@@ -1145,7 +1162,7 @@ function enter() {
   setTimeout(petalShower, reduce ? 0 : 1500);
   setTimeout(() => { musicBtn.hidden = false; startMusic(); }, reduce ? 200 : 1300);
   setTimeout(() => templeBell(), reduce ? 0 : 2600);
-  setTimeout(() => { gate.classList.add("leaving"); document.documentElement.classList.remove("gated"); startDust(); setTimeout(startFireworks, 2600); }, reduce ? 1200 : 6200);
+  setTimeout(() => { gate.classList.add("leaving"); document.documentElement.classList.remove("gated"); startDust(); setTimeout(startFireworks, 2600); Nudge.start(); }, reduce ? 1200 : 6200);
   setTimeout(() => { gate.hidden = true; window.__lotusRecheck && window.__lotusRecheck(); }, reduce ? 1500 : 7500);
 }
 $("#enterBtn").addEventListener("click", enter);
@@ -1487,6 +1504,27 @@ function petals(from) {
   }
 }
 $("#gName").addEventListener("input", () => { if ($("#gName").value.trim()) $("#nameErr").hidden = true; });
+/* ---------- RSVP-by reminder bar ---------- */
+const Nudge = (() => {
+  const bar = $("#nudge"), deadline = new Date(INVITE.rsvpBy + "T23:59:00" + INVITE.utcOffset);
+  let dismissed = false, rsvpVisible = false, ready = false;
+  function text() {
+    const days = Math.ceil((deadline - Date.now()) / 864e5);
+    if (days < 0) return "RSVPs were due Oct 30. Please reply as soon as you can.";
+    if (days === 0) return "Last day to RSVP";
+    if (days <= 3) return `${days} day${days === 1 ? "" : "s"} left to RSVP`;
+    return "Please RSVP by Fri, Oct 30";
+  }
+  function update() {
+    const show = ready && !dismissed && !savedReply();
+    bar.hidden = !show;
+    if (show) { $("#nudgeText").textContent = text(); bar.classList.toggle("away", rsvpVisible); }
+  }
+  if ("IntersectionObserver" in window) new IntersectionObserver(es => { rsvpVisible = es[0].isIntersecting; update(); }, { threshold: .15 }).observe($("#rsvp"));
+  $("#nudgeX").addEventListener("click", () => { dismissed = true; update(); });
+  $("#nudgeGo").addEventListener("click", e => { e.preventDefault(); $("#rsvp").scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" }); });
+  return { start() { ready = true; setTimeout(update, 1800); }, update };
+})();
 const RSVP_URL = "https://script.google.com/macros/s/AKfycbxxyNActhq8UJsVlc2OnTOogVV8x0dHwc-rayWTKVcs517lTbY8w0ax4mQr6q5Ur5s53w/exec";
 function replyId() {
   if (LINK && LINK.code) return "link-" + LINK.code;
@@ -1534,7 +1572,7 @@ $("#rsvpForm").addEventListener("submit", async e => {
   }
   $("#rsvpForm").hidden = true; $("#confirm").hidden = false;
   setTimeout(() => $("#confirm").scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" }), 120);
-  if (ok) { try { localStorage.setItem("gp-saved-" + payload.id, JSON.stringify({ ...payload, at: Date.now() })); } catch (x) {} showSaved(); }
+  if (ok) { try { localStorage.setItem("gp-saved-" + payload.id, JSON.stringify({ ...payload, at: Date.now() })); } catch (x) {} showSaved(); Nudge.update(); }
 });
 $("#editRsvp").addEventListener("click", () => { $("#confirm").hidden = true; $("#rsvpForm").hidden = false; });
 function toast(t) { const el = $("#toast"); el.textContent = t; el.classList.add("show"); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove("show"), 2200); }
