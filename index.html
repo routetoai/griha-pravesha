@@ -1506,13 +1506,13 @@ $("#rsvpForm").addEventListener("submit", async e => {
   if (ok) {
     $("#confirmTitle").textContent = a === "yes" ? "See you on November 5!" : "Thank you";
     $("#confirmMsg").textContent = "We have your RSVP.";
-    $("#waBtn").classList.add("secondary"); $("#waLabel").textContent = "Also message us on WhatsApp";
+    $("#waBtn").hidden = true; $("#copyRsvp").hidden = true; $("#rsvpText").hidden = true;
     $("#waNote").textContent = "";
     petals(btn);
   } else {
     $("#confirmTitle").textContent = "One more step";
     $("#confirmMsg").textContent = "That didn't go through. Please send it to us on WhatsApp.";
-    $("#waBtn").classList.remove("secondary"); $("#waLabel").textContent = "Send on WhatsApp";
+    $("#waBtn").hidden = false; $("#copyRsvp").hidden = false; $("#rsvpText").hidden = false; $("#waBtn").classList.remove("secondary"); $("#waLabel").textContent = "Send on WhatsApp";
     $("#waNote").textContent = "";
   }
   $("#rsvpForm").hidden = true; $("#confirm").hidden = false;
