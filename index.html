@@ -1440,7 +1440,8 @@ const LINK = (() => {
 })();
 (function greet() {
   if (!LINK || !LINK.namePart) return;
-  const name = LINK.namePart.split(/[-_.]+/).filter(Boolean).map(w => w.toLowerCase() === "and" ? "&" : w[0].toUpperCase() + w.slice(1)).join(" ");
+  const word = w => w.toLowerCase() === "and" ? "&" : w;
+  const name = LINK.namePart.split("_").map(g => g.split(/[-.]+/).filter(Boolean).map(word).join(" ")).filter(Boolean).join(", ");
   const g = $("#greeting"); g.textContent = `Dear ${name},`; g.hidden = false;
   $("#gateGreet").textContent = `Dear ${name}`;
   $("#gName").value = name;
