@@ -250,6 +250,10 @@ input::placeholder { color: var(--cream-dim); opacity: .6; }
 .stepper button { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--line); background: transparent; color: var(--gold); font-size: 19px; line-height: 1; cursor: pointer; transition: background .2s; }
 .stepper button:hover { background: rgba(244,213,141,.15); }
 .stepper output { min-width: 22px; text-align: center; font-size: 24px; font-weight: 500; color: var(--gold); font-variant-numeric: tabular-nums; }
+.saved { position: relative; border-radius: 18px; padding: 18px 20px; text-align: center; border: 1px solid var(--gold); background: linear-gradient(160deg, rgba(255,255,255,.1), rgba(255,255,255,.03)); display: flex; flex-direction: column; gap: 4px; }
+.saved-line { font-family: var(--f-body); font-size: 22px; font-weight: 500; color: var(--gold); }
+.saved-when { font-size: 14px; color: var(--cream-dim); font-style: italic; }
+.saved-hint { font-size: 15px; color: var(--cream-dim); margin-top: 6px; }
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 .btn.sending { pointer-events: none; opacity: .8; }
 .btn.sending::before { content: ""; width: 14px; height: 14px; border-radius: 50%; border: 2px solid currentColor; border-right-color: transparent; animation: spin .8s linear infinite; }
@@ -652,6 +656,12 @@ html.gated .column, html.gated .column *, html.gated .column *::before, html.gat
       <svg class="lotus" viewBox="0 0 64 38" aria-hidden="true"><ellipse class="halo" cx="32" cy="26" rx="26" ry="10" fill="rgba(242,208,140,.14)"/><path class="p" style="--d:.45s" d="M32 32C18 32 6 26 2 18c10 0 22 4 30 14z" fill="#e98b9a" opacity=".85"/><path class="p" style="--d:.45s" d="M32 32c14 0 26-6 30-14-10 0-22 4-30 14z" fill="#e98b9a" opacity=".85"/><path class="p" style="--d:.25s" d="M32 32C22 28 14 18 14 8c8 4 16 12 18 24z" fill="#f2a7b1"/><path class="p" style="--d:.25s" d="M32 32c10-4 18-14 18-24-8 4-16 12-18 24z" fill="#f2a7b1"/><path class="p" style="--d:.05s" d="M32 33c-6-6-8-16-0-30 8 14 6 24 0 30z" fill="#f8c6cc"/><path d="M14 34h36" stroke="#d4a548" stroke-width="1.4" stroke-linecap="round"/></svg>
       <span class="caps">Kindly reply</span>
       <h2 id="h-rsvp">Will you join us?</h2>
+    </div>
+    <div class="saved" id="savedBox" hidden>
+      <span class="lbl">Your RSVP</span>
+      <p class="saved-line" id="savedLine"></p>
+      <p class="saved-when" id="savedWhen"></p>
+      <p class="saved-hint">Need to change it? Edit below and tap Update RSVP.</p>
     </div>
     <form id="rsvpForm" novalidate>
       <div class="field">
@@ -1422,10 +1432,15 @@ INVITE.events.forEach(e => {
 $("#mapBtn").href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(INVITE.address.join(", "));
 
 /* ---------- Personal greeting from the link, e.g. #Ravi-and-Lakshmi ---------- */
-(function greet() {
+const LINK = (() => {
   const h = decodeURIComponent((location.hash || "").slice(1));
-  if (!h || !/^[A-Za-z0-9._~-]+$/.test(h) || /^(rsvp|h-)/i.test(h)) return;
-  const name = h.split(/[-_.~]+/).filter(Boolean).map(w => w.toLowerCase() === "and" ? "&" : w[0].toUpperCase() + w.slice(1)).join(" ");
+  if (!h || !/^[A-Za-z0-9._~-]+$/.test(h) || /^(rsvp|h-)/i.test(h)) return null;
+  const [namePart, code] = h.split("~");
+  return { namePart, code: code && /^[A-Za-z0-9]{6,}$/.test(code) ? code : null };
+})();
+(function greet() {
+  if (!LINK || !LINK.namePart) return;
+  const name = LINK.namePart.split(/[-_.]+/).filter(Boolean).map(w => w.toLowerCase() === "and" ? "&" : w[0].toUpperCase() + w.slice(1)).join(" ");
   const g = $("#greeting"); g.textContent = `Dear ${name},`; g.hidden = false;
   $("#gateGreet").textContent = `Dear ${name}`;
   $("#gName").value = name;
@@ -1473,6 +1488,7 @@ function petals(from) {
 $("#gName").addEventListener("input", () => { if ($("#gName").value.trim()) $("#nameErr").hidden = true; });
 const RSVP_URL = "https://script.google.com/macros/s/AKfycbxxyNActhq8UJsVlc2OnTOogVV8x0dHwc-rayWTKVcs517lTbY8w0ax4mQr6q5Ur5s53w/exec";
 function replyId() {
+  if (LINK && LINK.code) return "link-" + LINK.code;
   let id = null;
   try { id = localStorage.getItem("gp-rid"); } catch (e) {}
   if (!id) {
@@ -1500,7 +1516,7 @@ $("#rsvpForm").addEventListener("submit", async e => {
   btn.classList.add("sending"); btn.textContent = "Saving"; err.hidden = true;
   let ok = false;
   try { ok = await saveRsvp(payload); } catch (x) { ok = false; }
-  btn.classList.remove("sending"); btn.textContent = "Confirm RSVP";
+  btn.classList.remove("sending"); btn.textContent = savedReply() || ok ? "Update RSVP" : "Confirm RSVP";
   $("#rsvpText").textContent = msg;
   $("#waBtn").href = `https://wa.me/${INVITE.whatsapp}?text=${encodeURIComponent(msg)}`;
   if (ok) {
@@ -1517,7 +1533,7 @@ $("#rsvpForm").addEventListener("submit", async e => {
   }
   $("#rsvpForm").hidden = true; $("#confirm").hidden = false;
   setTimeout(() => $("#confirm").scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" }), 120);
-  try { localStorage.setItem("gp-rsvp-v2", JSON.stringify({ name: payload.name, a })); } catch (x) {}
+  if (ok) { try { localStorage.setItem("gp-saved-" + payload.id, JSON.stringify({ ...payload, at: Date.now() })); } catch (x) {} showSaved(); }
 });
 $("#editRsvp").addEventListener("click", () => { $("#confirm").hidden = true; $("#rsvpForm").hidden = false; });
 function toast(t) { const el = $("#toast"); el.textContent = t; el.classList.add("show"); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove("show"), 2200); }
@@ -1527,7 +1543,33 @@ async function copy(text, ok, el) {
 }
 $("#copyRsvp").addEventListener("click", () => copy($("#rsvpText").textContent, "RSVP copied", $("#rsvpText")));
 $("#copyAddr").addEventListener("click", () => copy(INVITE.address.join(", "), "Address copied", $("#address")));
-try { const s = JSON.parse(localStorage.getItem("gp-rsvp-v2") || "null"); if (s && !$("#gName").value) { $("#gName").value = s.name; const r = document.querySelector(`input[name="attend"][value="${s.a}"]`); if (r) r.checked = true; } } catch (e) {}
+/* ---------- Show the guest's saved reply when they come back ---------- */
+function savedReply() { try { return JSON.parse(localStorage.getItem("gp-saved-" + replyId()) || "null"); } catch (e) { return null; } }
+function showSaved() {
+  const r = savedReply(), box = $("#savedBox");
+  if (!r) { box.hidden = true; return; }
+  const att = { yes: "Yes", maybe: "Maybe", no: "No" }[r.attending] || "";
+  const parts = [att];
+  if (r.attending !== "no") {
+    parts.push(`${r.adults} adult${r.adults === 1 ? "" : "s"}` + (r.kids ? `, ${r.kids} kid${r.kids === 1 ? "" : "s"}` : ""));
+    const ev = [r.pooja && "Pooja", r.dinner && "Dinner"].filter(Boolean).join(" and ");
+    if (ev) parts.push(ev);
+  }
+  $("#savedLine").textContent = parts.join(" · ");
+  $("#savedWhen").textContent = "Sent " + new Date(r.at).toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
+  box.hidden = false;
+  $("#sendBtn").textContent = "Update RSVP";
+}
+(function prefill() {
+  const r = savedReply(); if (!r) return;
+  $("#gName").value = r.name;
+  const radio = document.querySelector(`input[name="attend"][value="${r.attending}"]`); if (radio) radio.checked = true;
+  counts.adults = Math.max(1, r.adults || 1); counts.kids = r.kids || 0;
+  $("#adults").textContent = counts.adults; $("#kids").textContent = counts.kids;
+  if ($("#ev-pooja")) $("#ev-pooja").checked = !!r.pooja;
+  if ($("#ev-dinner")) $("#ev-dinner").checked = !!r.dinner;
+  syncForm(); showSaved();
+})();
 syncForm();
 
 
